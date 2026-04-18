@@ -59,7 +59,7 @@ export function CoursePurchaseSection({ course, plans }: { course: any, plans: a
              key: orderData.key,
              amount: orderData.amount,
              currency: orderData.currency,
-             name: "Study Smart Innovations",
+             name: "Zentor",
              description: `Course: ${course.title}`,
              order_id: orderData.orderId,
              handler: async function (response: any) {
