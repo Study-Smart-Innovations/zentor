@@ -1,125 +1,226 @@
 "use client"
 
 import { motion } from "framer-motion";
-import { Check, X, ShieldCheck, Zap, GraduationCap, Briefcase } from "lucide-react";
+import { Check, Mail, Sparkles, Zap, Shield, Globe } from "lucide-react";
 
-const PricingCard = ({ title, price, description, features, popular = false, delay, icon: Icon }: { title: string, price: string, description: string, features: { text: string, included: boolean }[], popular?: boolean, delay: number, icon: any }) => (
-  <motion.div
-    initial={{ opacity: 0, scale: 0.95 }}
-    whileInView={{ opacity: 1, scale: 1 }}
-    transition={{ duration: 0.5, delay }}
-    viewport={{ once: true }}
-    className={`relative flex flex-col p-10 rounded-[2.5rem] border ${popular ? "border-primary-blue bg-primary-blue/[0.03] shadow-premium" : "border-foreground/10 bg-background"} transition-all hover:border-primary-blue/30`}
-  >
-    {popular && (
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-primary-blue px-4 py-1.5 text-[10px] font-black text-white shadow-lg uppercase tracking-widest">
-        Recommended
-      </div>
-    )}
-    
-    <div className="flex items-center justify-between">
-      <div className={`flex h-12 w-12 items-center justify-center rounded-2xl ${popular ? "bg-primary-blue text-white" : "bg-foreground/5 text-foreground/40"}`}>
-        <Icon className="h-6 w-6" />
-      </div>
-      {popular && <Zap className="h-5 w-5 text-primary-blue animate-pulse" />}
-    </div>
+const TEACHER_TIERS = [
+  {
+    name: "Basic",
+    price: "₹0",
+    period: "/year",
+    description: "Ideal for individual educators starting their online journey.",
+    fee: "10% transaction fee",
+    highlight: "bg-white border-editorial-black/10",
+    features: [
+      "Unlimited Course Hosting",
+      "Standard Video Player",
+      "Student Management Hub",
+      "Basic Analytics",
+      "Community Support"
+    ],
+    cta: "Start for free",
+    icon: Globe
+  },
+  {
+    name: "Plus",
+    price: "₹20,000",
+    period: "/year",
+    description: "Leverage AI to streamline your curriculum and engagement.",
+    fee: "+ Monthly AI Usage Costs",
+    highlight: "bg-[#CD7F32]/5 border-[#CD7F32]/20",
+    features: [
+      "AI Lesson Schematics",
+      "Automated Quiz Generation",
+      "Student Insight AI",
+      "Premium Video Dashboard",
+      "Priority Email Support"
+    ],
+    cta: "Go Plus",
+    icon: Sparkles,
+    accent: "text-[#CD7F32]"
+  },
+  {
+    name: "Pro",
+    price: "₹30,000",
+    period: "/year",
+    description: "Scale your reach with advanced marketing automation.",
+    fee: "+ Monthly Marketing Costs",
+    highlight: "bg-[#94a3b8]/5 border-[#94a3b8]/20",
+    features: [
+      "SEO Funnel Builder",
+      "Social Media Auto-Pilot",
+      "Newsletter Campaign Suite",
+      "Custom Branding Tools",
+      "Growth Analytics Pro"
+    ],
+    cta: "Go Pro",
+    icon: Zap,
+    accent: "text-[#64748b]"
+  },
+  {
+    name: "Pro Plus",
+    price: "₹50,000",
+    period: "/year",
+    description: "The ultimate engine for elite mentors and academies.",
+    fee: "+ AI & Marketing Usage",
+    highlight: "bg-[#F59E0B]/5 border-[#F59E0B]/30",
+    features: [
+      "Everything in Plus & Pro",
+      "High-Conversion Landing Pages",
+      "Dedicated Account Support",
+      "Custom API Access",
+      "White-Glove Migration"
+    ],
+    cta: "Maximum Growth",
+    icon: Shield,
+    accent: "text-[#D97706]",
+    popular: true
+  }
+];
 
-    <h3 className="mt-6 text-2xl font-black text-foreground tracking-tight">{title}</h3>
-    
-    <div className="mt-4 flex items-baseline space-x-1">
-      <span className="text-4xl font-black text-foreground">{price === "Free" ? "" : "$"}{price}</span>
-      {price !== "Free" && <span className="text-foreground/40 font-bold text-sm">/month</span>}
-    </div>
-    
-    <p className="mt-4 text-base text-foreground/50 leading-relaxed">
-      {description}
-    </p>
-    
-    <div className="mt-8 h-px bg-foreground/5" />
+const STUDENT_TIERS = [
+  {
+    name: "Free Tier",
+    price: "₹0",
+    description: "Standard access for all enrolled students.",
+    features: ["Access to Paid Content", "Standard Video Quality", "Discussion Forums"]
+  },
+  {
+    name: "AI Companion",
+    price: "₹3,000",
+    period: "one-time",
+    description: "Supercharge your learning with personal AI mentorship.",
+    usage: "+ Monthly AI Costs",
+    features: ["Smart Study Notes", "AI Practice Sessions", "Real-time Query Resolution", "Automated Flashcards"]
+  }
+];
 
-    <ul className="mt-8 space-y-4 flex-1">
-      {features.map((feature, i) => (
-        <li key={i} className="flex items-start space-x-3 text-sm">
-          {feature.included ? (
-            <div className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary-mint/10 text-primary-mint">
-              <Check className="h-3 w-3 stroke-[3]" />
-            </div>
-          ) : (
-            <div className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-foreground/5 text-foreground/20">
-              <X className="h-3 w-3 stroke-[3]" />
-            </div>
-          )}
-          <span className={feature.included ? "font-bold text-foreground/70" : "font-medium text-foreground/30"}>
-            {feature.text}
-          </span>
-        </li>
-      ))}
-    </ul>
-    
-    <button className={`mt-10 rounded-2xl py-5 text-center text-sm font-black tracking-widest uppercase transition-all duration-300 active:scale-95 ${popular ? "bg-primary-blue text-white shadow-xl shadow-primary-blue/20 hover:bg-primary-purple" : "border-2 border-foreground/10 bg-background hover:bg-foreground/5 text-foreground"}`}>
-      {price === "Free" ? "Get Started" : "Start Now"}
-    </button>
-  </motion.div>
-);
-
-export const PricingSection = () => {
+export function PricingSection() {
   return (
-    <section className="py-24 lg:py-32 relative overflow-hidden" id="pricing">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            className="inline-flex items-center space-x-2 rounded-full bg-primary-mint/10 px-4 py-1.5 text-sm font-black text-primary-mint"
-          >
-            <ShieldCheck className="h-4 w-4" />
-            <span className="uppercase tracking-[0.1em]">Transparent Pricing</span>
-          </motion.div>
-          <motion.h2
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            viewport={{ once: true }}
-            className="mt-6 text-4xl font-black tracking-tighter text-foreground sm:text-5xl lg:text-6xl"
-          >
-            Plans for <span className="text-primary-blue">Every Journey</span>
-          </motion.h2>
+    <section id="pricing" className="pt-12 pb-32 px-8 sm:px-12 lg:px-24 bg-editorial-cream">
+      <div className="max-w-7xl mx-auto">
+        <div className="mb-24 space-y-4">
+          <p className="text-[10px] font-black uppercase tracking-[0.4em] text-editorial-black/40">Investment Options</p>
+          <h2 className="text-5xl md:text-7xl font-serif text-editorial-black leading-tight italic">
+            Empowering Mentors, <br />
+            <span className="text-[#C5A059]">Elevating Students.</span>
+          </h2>
         </div>
 
-        <div className="mt-16 mx-auto grid max-w-5xl gap-8 lg:grid-cols-2">
-          <PricingCard
-            title="Student Pass"
-            price="Free"
-            icon={GraduationCap}
-            description="Access local teacher discovery and basic study materials."
-            delay={0.2}
-            features={[
-              { text: "Find Local Teachers", included: true },
-              { text: "Public Course Previews", included: true },
-              { text: "Community Notes Access", included: true },
-              { text: "Ad-supported experience", included: true },
-              { text: "Direct Teacher Messaging", included: false },
-              { text: "Premium Mock Exams", included: false },
-            ]}
-          />
-          <PricingCard
-            title="Teacher Pro"
-            price="19.99"
-            icon={Briefcase}
-            description="Scale your tuition business with advanced leads and tools."
-            popular
-            delay={0.3}
-            features={[
-              { text: "Unlimited Course Listings", included: true },
-              { text: "Verified Teacher Badge", included: true },
-              { text: "Student Lead Generation", included: true },
-              { text: "Performance Analytics", included: true },
-              { text: "Direct Payment Integration", included: true },
-              { text: "Priority Support", included: true },
-            ]}
-          />
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          {TEACHER_TIERS.map((tier, idx) => (
+            <motion.div
+              key={tier.name}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: idx * 0.1 }}
+              className={`relative p-8 rounded-[2.5rem] border ${tier.highlight} flex flex-col h-full shadow-sm hover:shadow-xl transition-all duration-500`}
+            >
+              {tier.popular && (
+                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-editorial-black text-white text-[10px] font-black uppercase tracking-widest px-6 py-2 rounded-full shadow-lg">
+                  Most Advanced
+                </div>
+              )}
+
+              <div className="mb-8">
+                <div className={`h-12 w-12 rounded-2xl flex items-center justify-center mb-6 ${tier.accent || "text-editorial-black"} bg-white shadow-sm border border-editorial-black/5`}>
+                  <tier.icon className="h-6 w-6" />
+                </div>
+                <h3 className="text-2xl font-serif text-editorial-black mb-2">{tier.name}</h3>
+                <div className="flex items-baseline gap-1 mb-2">
+                  <span className="text-4xl font-black text-editorial-black">{tier.price}</span>
+                  <span className="text-sm text-editorial-black/40 font-medium">{tier.period}</span>
+                </div>
+                <p className="text-[10px] font-bold uppercase tracking-widest text-[#C5A059] mb-4">{tier.fee}</p>
+                <p className="text-sm text-editorial-black/60 leading-relaxed italic line-clamp-2">"{tier.description}"</p>
+              </div>
+
+              <div className="space-y-4 mb-10 flex-grow">
+                {tier.features.map((feature) => (
+                  <div key={feature} className="flex items-start space-x-3">
+                    <div className="h-5 w-5 rounded-full bg-editorial-black/5 flex items-center justify-center shrink-0 mt-0.5">
+                      <Check className="h-3 w-3 text-editorial-black/60" />
+                    </div>
+                    <span className="text-xs text-editorial-black/70 font-medium leading-relaxed">{feature}</span>
+                  </div>
+                ))}
+              </div>
+
+              <button className={`w-full py-5 rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] transition-all hover:scale-[1.02] active:scale-95 ${
+                tier.popular 
+                ? "bg-editorial-black text-white shadow-2xl" 
+                : "bg-editorial-black/5 text-editorial-black hover:bg-editorial-black/10"
+              }`}>
+                {tier.cta}
+              </button>
+            </motion.div>
+          ))}
+        </div>
+
+        {/* Student Pricing & Business Tier */}
+        <div className="mt-24 grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <motion.div 
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="lg:col-span-2 p-12 rounded-[3.5rem] bg-editorial-black text-white relative overflow-hidden group"
+          >
+            <div className="relative z-10">
+              <div className="inline-flex items-center space-x-3 mb-8">
+                <div className="h-px w-12 bg-[#C5A059]" />
+                <span className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#C5A059]">For Students</span>
+              </div>
+              <h3 className="text-4xl font-serif italic mb-12">Learn your way, <br />without platform fees.</h3>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+                {STUDENT_TIERS.map(st => (
+                  <div key={st.name} className="space-y-6">
+                    <div>
+                      <h4 className="text-xl font-serif mb-2">{st.name}</h4>
+                      <p className="text-3xl font-black">{st.price}{st.period && <span className="text-sm font-medium text-white/40 ml-1">/{st.period}</span>}</p>
+                      {st.usage && <p className="text-[10px] font-black text-[#C5A059] uppercase tracking-widest mt-1">{st.usage}</p>}
+                    </div>
+                    <ul className="space-y-3">
+                      {st.features.map(f => (
+                        <li key={f} className="flex items-center text-xs text-white/60">
+                          <Check className="h-3 w-3 mr-3 text-[#C5A059]" />
+                          {f}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="absolute top-0 right-0 h-64 w-64 bg-white/5 blur-3xl rounded-full -translate-y-1/2 translate-x-1/2 group-hover:scale-110 transition-transform duration-1000" />
+          </motion.div>
+
+          <motion.div 
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="p-12 rounded-[3.5rem] border border-editorial-black/10 flex flex-col justify-center items-center text-center space-y-8"
+          >
+            <div className="h-20 w-20 rounded-full bg-editorial-black/5 flex items-center justify-center">
+              <Mail className="h-8 w-8 text-editorial-black/40" />
+            </div>
+            <div className="space-y-4">
+              <h3 className="text-3xl font-serif italic text-editorial-black">Business Tier</h3>
+              <p className="text-sm text-editorial-black/60 italic leading-relaxed">
+                Custom enterprise solutions for institutions, coaching centers, and schools.
+              </p>
+            </div>
+            <a 
+              href="mailto:ayishik2003@gmail.com"
+              className="group flex flex-col items-center"
+            >
+              <span className="text-[10px] font-black uppercase tracking-widest text-editorial-black/30 mb-1 group-hover:text-[#C5A059] transition-colors">Contact Founder</span>
+              <span className="text-lg font-serif italic text-editorial-black border-b border-editorial-black/20 group-hover:border-[#C5A059] transition-all">ayishik2003@gmail.com</span>
+            </a>
+          </motion.div>
         </div>
       </div>
     </section>
   );
-};
+}

@@ -13,6 +13,7 @@ export const Navbar = () => {
 
   const navLinks = [
     { name: "About", href: "/about" },
+    { name: "Pricing", href: "/pricing" },
     { name: "Sign in", href: "/login" },
   ];
 

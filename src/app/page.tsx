@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic";
 import { Navbar } from "@/components/navbar";
 import { HeroSection } from "@/components/hero-section";
+import { PricingSection } from "@/components/pricing-section";
 import { Footer } from "@/components/cta-footer";
 
 // Disable SSR for the background and main layout shell to fix the persistent dev-server hydration cache bug
