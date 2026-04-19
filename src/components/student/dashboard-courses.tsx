@@ -37,7 +37,7 @@ export function EnrolledCoursesGrid({ courses }: { courses: any[] }) {
   }
 
   return (
-    <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-3">
+    <div className="grid gap-8 md:gap-12 sm:grid-cols-2 lg:grid-cols-3">
       {courses.map((course, i) => (
         <motion.div
           key={course.id}
@@ -72,7 +72,7 @@ export function EnrolledCoursesGrid({ courses }: { courses: any[] }) {
                  <div className="flex items-center space-x-2 text-[#C5A059]">
                     <Calendar className="h-3 w-3" />
                     <span className="text-[10px] font-bold uppercase tracking-widest">
-                       Ends: {new Date(course.access_end).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' })}
+                       Ends: {new Date(course.access_end).toLocaleDateString("en-US", { year: 'numeric', month: 'short', day: 'numeric' })}
                     </span>
                  </div>
               )}
@@ -100,7 +100,7 @@ export function FacultySuggestions({ suggestions }: { suggestions: any[] }) {
   return (
     <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 w-full">
        {suggestions.map((s, i) => (
-          <Link key={s.id} href={`/courses/${s.id}`} className="flex items-center space-x-6 p-6 border border-editorial-black/5 hover:border-editorial-black/20 transition-all group bg-white/40">
+          <Link key={s.id} href={`/courses/${s.id}`} className="flex items-center space-x-4 md:space-x-6 p-5 md:p-6 border border-editorial-black/5 hover:border-editorial-black/20 transition-all group bg-white/40">
              <div className="h-16 w-16 shrink-0 bg-editorial-black/5 overflow-hidden filter grayscale-[0.8] group-hover:grayscale-0 transition-all duration-700">
                 {s.thumbnail_url ? (
                    <img src={s.thumbnail_url} alt={s.title} className="h-full w-full object-cover" />

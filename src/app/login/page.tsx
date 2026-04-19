@@ -5,6 +5,7 @@ import Link from "next/link";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
+import { Eye, EyeOff } from "lucide-react";
 import { Navbar } from "@/components/navbar";
 
 // Optimized for Zentor Academic Portal (SSR Sync)
@@ -14,6 +15,7 @@ type Role = "student" | "teacher";
 export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const [role, setRole] = useState<Role>("student");
   const router = useRouter();
 
@@ -51,7 +53,7 @@ export default function LoginPage() {
     }
   };
   return (
-    <main className="h-screen overflow-hidden flex flex-col bg-editorial-cream">
+    <main className="min-h-screen overflow-y-auto flex flex-col bg-editorial-cream pb-20">
       <Navbar />
       <div className="flex-1 flex items-center justify-center p-6 lg:p-12">
         <motion.div
@@ -121,13 +123,22 @@ export default function LoginPage() {
                   Recovery
                 </Link>
               </div>
-              <input
-                name="password"
-                type="password"
-                required
-                placeholder="••••••••"
-                className="w-full bg-transparent border-b border-editorial-black/10 py-3 px-1 text-editorial-black outline-none transition-all focus:border-editorial-black placeholder:text-editorial-black/20"
-              />
+              <div className="relative">
+                <input
+                  name="password"
+                  type={showPassword ? "text" : "password"}
+                  required
+                  placeholder="••••••••"
+                  className="w-full bg-transparent border-b border-editorial-black/10 py-3 px-1 text-editorial-black outline-none transition-all focus:border-editorial-black placeholder:text-editorial-black/20"
+                />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-1 top-1/2 -translate-y-1/2 text-editorial-black/20 hover:text-editorial-black transition-colors"
+                >
+                  {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                </button>
+              </div>
             </div>
 
             {error && (

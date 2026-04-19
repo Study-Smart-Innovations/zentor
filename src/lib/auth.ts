@@ -4,6 +4,11 @@ import bcrypt from "bcrypt";
 import { supabaseAdmin } from "./supabase";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
+  session: {
+    strategy: "jwt",
+    maxAge: 6 * 60 * 60, // 6 hours (21,600 seconds)
+    updateAge: 1 * 60 * 60, // Update session every 1 hour (optional but recommended for sliding sessions)
+  },
   providers: [
     Credentials({
       name: "Credentials",

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { User, Mail, Lock, HelpCircle, ArrowRight, ShieldCheck, Rocket, GraduationCap, ChevronDown } from "lucide-react";
+import { User, Mail, Lock, HelpCircle, ArrowRight, ShieldCheck, Rocket, GraduationCap, ChevronDown, Eye, EyeOff } from "lucide-react";
 import { registerStudent } from "@/lib/actions/auth";
 import { Navbar } from "@/components/navbar";
 import { TeacherSignupForm } from "@/components/auth/teacher-signup-form";
@@ -17,6 +17,7 @@ export default function RegisterPage() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
   const [role, setRole] = useState<Role>("student");
+  const [showPassword, setShowPassword] = useState(false);
   const [teacherCode, setTeacherCode] = useState<string | null>(null);
 
   const handleStudentSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -49,9 +50,9 @@ export default function RegisterPage() {
 
   if (success) {
     return (
-      <main className="h-screen overflow-hidden flex flex-col bg-editorial-cream">
+      <main className="min-h-screen overflow-y-auto flex flex-col bg-editorial-cream">
         <Navbar />
-        <div className="flex-1 flex items-center justify-center p-6 lg:p-12">
+        <div className="flex-1 flex items-center justify-center p-6 lg:p-12 pb-20 md:pb-12">
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -86,7 +87,7 @@ export default function RegisterPage() {
   }
 
   return (
-    <main className="h-screen overflow-hidden flex flex-col bg-editorial-cream">
+    <main className="min-h-screen overflow-y-auto flex flex-col bg-editorial-cream pb-20">
       <Navbar />
       <div className="flex-1 flex items-center justify-center p-6 lg:p-12">
         <motion.div
@@ -168,13 +169,22 @@ export default function RegisterPage() {
 
                   <div className="space-y-1">
                     <label className="text-[10px] font-bold text-editorial-black/40 uppercase tracking-widest ml-1">Password</label>
-                    <input
-                      name="password"
-                      type="password"
-                      required
-                      placeholder="••••••••"
-                      className="w-full bg-transparent border-b border-editorial-black/10 py-2 px-1 text-editorial-black outline-none transition-all focus:border-editorial-black placeholder:text-editorial-black/20"
-                    />
+                    <div className="relative">
+                      <input
+                        name="password"
+                        type={showPassword ? "text" : "password"}
+                        required
+                        placeholder="••••••••"
+                        className="w-full bg-transparent border-b border-editorial-black/10 py-2 px-1 text-editorial-black outline-none transition-all focus:border-editorial-black placeholder:text-editorial-black/20"
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="absolute right-1 top-1/2 -translate-y-1/2 text-editorial-black/20 hover:text-editorial-black transition-colors"
+                      >
+                        {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                      </button>
+                    </div>
                   </div>
 
                   <div className="grid gap-6 md:grid-cols-2">

@@ -25,15 +25,15 @@ export default async function ManageCoursePage({ params }: { params: Promise<{ i
   }
 
   return (
-    <div className="min-h-screen bg-editorial-cream text-editorial-black p-8 space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-700">
+    <div className="min-h-screen bg-editorial-cream text-editorial-black p-4 md:p-8 space-y-8 md:space-y-12 animate-in fade-in slide-in-from-bottom-4 duration-700">
       {/* Header with Editorial Control Center Feel */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 pb-12 border-b border-editorial-black/5">
-        <div className="flex items-center space-x-8">
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-8 pb-8 md:pb-12 border-b border-editorial-black/5">
+        <div className="flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-8">
           <Link 
             href="/teacher/dashboard"
-            className="h-16 w-16 bg-editorial-black/5 flex items-center justify-center text-editorial-black/40 hover:text-editorial-black hover:bg-editorial-black/10 transition-all shadow-sm"
+            className="h-12 w-12 md:h-16 md:w-16 bg-editorial-black/5 flex items-center justify-center text-editorial-black/40 hover:text-editorial-black hover:bg-editorial-black/10 transition-all shadow-sm shrink-0"
           >
-            <ChevronLeft className="h-10 w-10" />
+            <ChevronLeft className="h-6 w-6 md:h-10 md:w-10" />
           </Link>
           <div className="space-y-2">
              <div className="flex items-center space-x-4">
@@ -49,15 +49,15 @@ export default async function ManageCoursePage({ params }: { params: Promise<{ i
                    )}
                 </div>
              </div>
-            <h1 className="text-5xl font-serif italic text-editorial-black tracking-tight">{course.title}</h1>
+            <h1 className="text-3xl md:text-5xl font-serif italic text-editorial-black tracking-tight leading-tight">{course.title}</h1>
           </div>
         </div>
-        <div className="flex items-center space-x-6">
+        <div className="flex flex-wrap items-center gap-4 md:gap-6">
           <Link
             href={`/courses/${course.id}`}
-            className="h-16 px-8 border-2 border-editorial-black/10 bg-white flex items-center justify-center font-black uppercase text-[10px] tracking-[0.2em] text-editorial-black hover:border-editorial-black hover:bg-editorial-black/5 transition-all shadow-sm group"
+            className="h-12 md:h-16 px-4 md:px-8 border-2 border-editorial-black/10 bg-white flex items-center justify-center font-black uppercase text-[10px] tracking-[0.2em] text-editorial-black hover:border-editorial-black hover:bg-editorial-black/5 transition-all shadow-sm group"
           >
-            <Eye className="h-4 w-4 mr-3 text-editorial-black/30 group-hover:text-editorial-black" />
+            <Eye className="h-4 w-4 mr-2 md:mr-3 text-editorial-black/30 group-hover:text-editorial-black" />
             <span>Curriculum Preview</span>
           </Link>
           
@@ -67,7 +67,7 @@ export default async function ManageCoursePage({ params }: { params: Promise<{ i
         </div>
       </div>
 
-      <div className="grid lg:grid-cols-3 gap-16">
+      <div className="grid lg:grid-cols-3 gap-8 md:gap-16">
         {/* Curriculum Engine */}
         <div className="lg:col-span-2 space-y-12">
           <ContentForm courseId={course.id} initialLessons={course.lessons} />
@@ -77,7 +77,7 @@ export default async function ManageCoursePage({ params }: { params: Promise<{ i
         <div className="space-y-10">
            <div className="sticky top-12">
              {/* Registry Metadata Status */}
-             <div className="p-12 border border-editorial-black/10 bg-white shadow-xl">
+             <div className="p-6 md:p-12 border border-editorial-black/10 bg-white shadow-xl">
                 <h4 className="text-[10px] font-black uppercase tracking-widest text-editorial-black/20 mb-6">Registry Status</h4>
                 <div className="space-y-4">
                    <div className="flex justify-between text-sm font-serif italic">

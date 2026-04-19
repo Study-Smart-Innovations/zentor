@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { User, Mail, Lock, HelpCircle, ArrowRight, BookOpen, GraduationCap, Clock, Phone, Star, ChevronDown } from "lucide-react";
+import { User, Mail, Lock, HelpCircle, ArrowRight, BookOpen, GraduationCap, Clock, Phone, Star, ChevronDown, Eye, EyeOff } from "lucide-react";
 import { signUpTeacher } from "@/lib/actions/teacher";
 
 interface TeacherSignupFormProps {
@@ -12,6 +12,7 @@ interface TeacherSignupFormProps {
 
 export function TeacherSignupForm({ onSuccess, securityQuestions }: TeacherSignupFormProps) {
   const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -109,13 +110,22 @@ export function TeacherSignupForm({ onSuccess, securityQuestions }: TeacherSignu
       <div className="grid gap-4 md:grid-cols-2">
         <div className="space-y-1">
           <label className="text-[10px] font-bold text-editorial-black/40 uppercase tracking-widest ml-1">Password</label>
-          <input
-            name="password"
-            type="password"
-            required
-            placeholder="••••••••"
-            className="w-full bg-transparent border-b border-editorial-black/10 py-2 px-1 text-editorial-black outline-none transition-all focus:border-editorial-black placeholder:text-editorial-black/20"
-          />
+          <div className="relative">
+            <input
+              name="password"
+              type={showPassword ? "text" : "password"}
+              required
+              placeholder="••••••••"
+              className="w-full bg-transparent border-b border-editorial-black/10 py-2 px-1 text-editorial-black outline-none transition-all focus:border-editorial-black placeholder:text-editorial-black/20"
+            />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-1 top-1/2 -translate-y-1/2 text-editorial-black/20 hover:text-editorial-black transition-colors"
+            >
+              {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+            </button>
+          </div>
         </div>
         <div className="space-y-1">
           <label className="text-[10px] font-bold text-editorial-black/40 uppercase tracking-widest ml-1">Security Question</label>

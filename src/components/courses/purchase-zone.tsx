@@ -107,8 +107,8 @@ export function CoursePurchaseSection({ course, plans }: { course: any, plans: a
 
    return (
       <>
-      <section className="relative py-20">
-         <div className="grid gap-20 lg:grid-cols-2">
+      <section className="relative py-12 md:py-20">
+         <div className="grid gap-12 md:gap-20 lg:grid-cols-2">
 
             {/* Left: Value Proposition */}
             <div className="space-y-12">
@@ -149,7 +149,7 @@ export function CoursePurchaseSection({ course, plans }: { course: any, plans: a
 
             {/* Right: Pricing Card & Plan Selection */}
             <div className="relative">
-               <div className="p-12 border border-editorial-black/10 bg-white shadow-2xl relative flex flex-col h-full">
+               <div className="p-6 md:p-12 border border-editorial-black/10 bg-white shadow-2xl relative flex flex-col h-full">
 
                   <div className="mb-12">
                      <p className="text-[10px] font-black uppercase text-editorial-black/20 tracking-[0.4em] mb-4">Select Access Tier</p>
@@ -160,7 +160,7 @@ export function CoursePurchaseSection({ course, plans }: { course: any, plans: a
                               <button
                                  key={plan.id}
                                  onClick={() => setSelectedPlanId(plan.id)}
-                                 className={`w-full p-6 border flex items-center justify-between transition-all ${selectedPlanId === plan.id
+                                 className={`w-full p-4 md:p-6 border flex items-center justify-between transition-all ${selectedPlanId === plan.id
                                     ? 'border-editorial-black bg-editorial-black/[0.02] shadow-sm'
                                     : 'border-editorial-black/5 hover:border-editorial-black/20'
                                     }`}
@@ -194,11 +194,11 @@ export function CoursePurchaseSection({ course, plans }: { course: any, plans: a
                      </div>
 
                      <div className="flex items-baseline space-x-4">
-                        <span className="text-7xl font-serif italic text-editorial-black tabular-nums">
+                        <span className="text-5xl md:text-7xl font-serif italic text-editorial-black tabular-nums">
                            ₹{displayPrice}
                         </span>
                         {selectedPlan && selectedPlan.price < (course.price) && (
-                           <span className="text-2xl font-serif text-editorial-black/20 line-through tabular-nums">
+                           <span className="text-xl md:text-2xl font-serif text-editorial-black/20 line-through tabular-nums">
                               ₹{course.price}
                            </span>
                         )}
@@ -214,7 +214,7 @@ export function CoursePurchaseSection({ course, plans }: { course: any, plans: a
                   <button
                      onClick={handlePurchase}
                      disabled={isLoading}
-                     className="w-full h-24 bg-editorial-black text-editorial-cream hover:bg-editorial-black/90 transition-all flex items-center justify-center space-x-4 group"
+                     className="w-full h-16 md:h-24 bg-editorial-black text-editorial-cream hover:bg-editorial-black/90 transition-all flex items-center justify-center space-x-4 group"
                   >
                      {isLoading ? (
                         <Loader2 className="h-6 w-6 animate-spin" />

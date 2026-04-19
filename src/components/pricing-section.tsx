@@ -97,12 +97,12 @@ const STUDENT_TIERS = [
 
 export function PricingSection() {
   return (
-    <section id="pricing" className="pt-12 pb-32 px-8 sm:px-12 lg:px-24 bg-editorial-cream">
+    <section id="pricing" className="pt-24 pb-32 px-4 sm:px-8 lg:px-24 bg-editorial-cream">
       <div className="max-w-7xl mx-auto">
         <div className="mb-24 space-y-4">
           <p className="text-[10px] font-black uppercase tracking-[0.4em] text-editorial-black/40">Investment Options</p>
-          <h2 className="text-5xl md:text-7xl font-serif text-editorial-black leading-tight italic">
-            Empowering Mentors, <br />
+          <h2 className="text-4xl sm:text-5xl md:text-7xl font-serif text-editorial-black leading-tight italic">
+            Empowering Mentors, <span className="md:block hidden" />
             <span className="text-[#C5A059]">Elevating Students.</span>
           </h2>
         </div>
@@ -115,7 +115,7 @@ export function PricingSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: idx * 0.1 }}
-              className={`relative p-8 rounded-[2.5rem] border ${tier.highlight} flex flex-col h-full shadow-sm hover:shadow-xl transition-all duration-500`}
+              className={`relative p-8 md:p-10 rounded-[2rem] md:rounded-[2.5rem] border ${tier.highlight} flex flex-col h-full shadow-sm hover:shadow-xl transition-all duration-500`}
             >
               {tier.popular && (
                 <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-editorial-black text-white text-[10px] font-black uppercase tracking-widest px-6 py-2 rounded-full shadow-lg">
@@ -164,7 +164,7 @@ export function PricingSection() {
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="lg:col-span-2 p-12 rounded-[3.5rem] bg-editorial-black text-white relative overflow-hidden group"
+            className="lg:col-span-2 p-8 md:p-12 rounded-[2.5rem] md:rounded-[3.5rem] bg-editorial-black text-white relative overflow-hidden group"
           >
             <div className="relative z-10">
               <div className="inline-flex items-center space-x-3 mb-8">
@@ -200,7 +200,7 @@ export function PricingSection() {
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="p-12 rounded-[3.5rem] border border-editorial-black/10 flex flex-col justify-center items-center text-center space-y-8"
+            className="p-8 md:p-12 rounded-[2.5rem] md:rounded-[3.5rem] border border-editorial-black/10 flex flex-col justify-center items-center text-center space-y-8"
           >
             <div className="h-20 w-20 rounded-full bg-editorial-black/5 flex items-center justify-center">
               <Mail className="h-8 w-8 text-editorial-black/40" />

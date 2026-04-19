@@ -25,7 +25,7 @@ export function CourseCurriculum({ course }: { course: any }) {
 
   if (contents.length === 0) {
     return (
-      <div className="rounded-[3rem] border-2 border-dashed border-foreground/10 p-20 text-center">
+      <div className="rounded-[2rem] md:rounded-[3rem] border-2 border-dashed border-foreground/10 p-8 md:p-20 text-center">
         <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-[2rem] bg-foreground/5 text-foreground/20 mb-8">
           <BookOpen className="h-10 w-10" />
         </div>
@@ -49,7 +49,7 @@ export function CourseCurriculum({ course }: { course: any }) {
           </p>
         </div>
 
-        <div className="p-8 rounded-[2.5rem] bg-foreground/[0.03] border border-foreground/5 space-y-6">
+        <div className="p-6 md:p-8 rounded-[2rem] md:rounded-[2.5rem] bg-foreground/[0.03] border border-foreground/5 space-y-6">
           <div className="flex items-center justify-between">
             <span className="text-xs font-black text-black uppercase tracking-widest">Total Modules</span>
             <span className="text-sm font-black text-black">{contents.length} Items</span>
@@ -75,9 +75,9 @@ export function CourseCurriculum({ course }: { course: any }) {
             animate={{ opacity: 1, x: 0 }}
             transition={{ delay: i * 0.1 }}
             whileHover={{ scale: 1.01 }}
-            className="flex items-center space-x-6 p-8 rounded-3xl bg-white dark:bg-foreground/[0.03] border border-foreground/5 shadow-xl hover:border-primary-blue/30 transition-all group cursor-pointer"
+            className="flex items-center space-x-4 md:space-x-6 p-4 md:p-8 rounded-2xl md:rounded-3xl bg-white dark:bg-foreground/[0.03] border border-foreground/5 shadow-xl hover:border-primary-blue/30 transition-all group cursor-pointer"
           >
-            <div className="h-16 w-16 rounded-2xl bg-primary-blue/5 flex items-center justify-center text-primary-blue shadow-inner shrink-0 group-hover:bg-primary-blue group-hover:text-white transition-all">
+            <div className="h-12 w-12 md:h-16 md:w-16 rounded-xl md:rounded-2xl bg-primary-blue/5 flex items-center justify-center text-primary-blue shadow-inner shrink-0 group-hover:bg-primary-blue group-hover:text-white transition-all">
               {getContentIcon(item.type)}
             </div>
 
@@ -90,14 +90,14 @@ export function CourseCurriculum({ course }: { course: any }) {
                   <span className="text-[10px] font-black text-black/40 uppercase tracking-widest">{item.duration}</span>
                 )}
               </div>
-              <h4 className="font-black text-black text-xl line-clamp-1 uppercase tracking-tight">{item.title}</h4>
+              <h4 className="font-black text-black text-lg md:text-xl line-clamp-1 uppercase tracking-tight">{item.title}</h4>
               {item.description && (
-                <p className="text-sm font-medium text-black line-clamp-1">{item.description}</p>
+                <p className="text-xs md:text-sm font-medium text-black line-clamp-1">{item.description}</p>
               )}
             </div>
 
-            <div className="h-12 w-12 rounded-2xl bg-foreground/5 flex items-center justify-center text-black group-hover:bg-primary-blue/10 group-hover:text-primary-blue transition-all">
-              <Play className="h-6 w-6 ml-1" />
+            <div className="h-10 w-10 md:h-12 md:w-12 rounded-xl md:rounded-2xl bg-foreground/5 flex items-center justify-center text-black group-hover:bg-primary-blue/10 group-hover:text-primary-blue transition-all">
+              <Play className="h-5 w-5 ml-1" />
             </div>
           </motion.div>
         ))}

@@ -17,7 +17,7 @@ export default async function TeacherLayout({
   return (
     <div className="min-h-screen flex flex-col bg-editorial-cream">
       <Navbar />
-      <main className="flex-1 pt-0 pb-12 px-8 sm:px-12 lg:px-24">
+      <main className="flex-1 pt-0 pb-12 px-4 sm:px-12 lg:px-24">
         <div className="max-w-7xl mx-auto w-full">
           <div className="flex flex-col space-y-6">
             {children}

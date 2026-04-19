@@ -21,7 +21,7 @@ export function CourseForm({ course, onSuccess }: CourseFormProps) {
   const [discountPercentage, setDiscountPercentage] = useState(course?.discount_percentage || 0);
   const [offeredPrice, setOfferedPrice] = useState(course?.offered_price || course?.price || 0);
   const [price, setPrice] = useState(course?.price || 0);
-  
+
   // --- Linguistic Plan Registry State ---
   const [plans, setPlans] = useState<any[]>(course?.course_plans || [
     { name: "3-Month Access", durationDays: 90, price: course?.price || 0 }
@@ -74,9 +74,9 @@ export function CourseForm({ course, onSuccess }: CourseFormProps) {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="max-w-3xl mx-auto"
+      className="max-w-3xl mx-auto pb-12"
     >
-      <div className="glass-card p-8 lg:p-12 rounded-[2.5rem] shadow-2xl border border-foreground/5 relative overflow-hidden">
+      <div className="glass-card p-6 md:p-8 lg:p-12 rounded-3xl md:rounded-[2.5rem] shadow-2xl border border-foreground/5 relative overflow-hidden">
         {/* Glow effect */}
         <div className="absolute -top-24 -right-24 h-48 w-48 bg-primary-blue/10 blur-[80px] rounded-full" />
 
@@ -102,7 +102,7 @@ export function CourseForm({ course, onSuccess }: CourseFormProps) {
                   type="text"
                   required
                   placeholder="Mastering Advanced Mathematics"
-                  className="w-full bg-editorial-black/[0.02] border border-editorial-black/5 rounded-2xl py-5 pl-12 pr-4 text-editorial-black outline-none transition-all focus:border-[#C5A059] focus:bg-white font-serif italic text-lg shadow-sm placeholder:text-editorial-black/10"
+                  className="w-full bg-editorial-black/[0.02] border border-editorial-black/5 rounded-2xl py-4 md:py-5 pl-12 pr-4 text-editorial-black outline-none transition-all focus:border-[#C5A059] focus:bg-white font-serif italic text-lg shadow-sm placeholder:text-editorial-black/10"
                 />
               </div>
             </div>
@@ -117,7 +117,7 @@ export function CourseForm({ course, onSuccess }: CourseFormProps) {
                   value={headline}
                   onChange={(e) => setHeadline(e.target.value)}
                   placeholder="Elevate your algebraic understanding..."
-                  className="w-full bg-editorial-black/[0.02] border border-editorial-black/5 rounded-2xl py-5 pl-12 pr-4 text-editorial-black outline-none transition-all focus:border-[#C5A059] focus:bg-white font-serif italic text-lg shadow-sm placeholder:text-editorial-black/10"
+                  className="w-full bg-editorial-black/[0.02] border border-editorial-black/5 rounded-2xl py-4 md:py-5 pl-12 pr-4 text-editorial-black outline-none transition-all focus:border-[#C5A059] focus:bg-white font-serif italic text-lg shadow-sm placeholder:text-editorial-black/10"
                 />
               </div>
             </div>
@@ -132,7 +132,7 @@ export function CourseForm({ course, onSuccess }: CourseFormProps) {
                 name="description"
                 rows={4}
                 placeholder="Compose a compelling narrative for your students..."
-                className="w-full bg-editorial-black/[0.02] border border-editorial-black/5 rounded-2xl py-5 pl-12 pr-4 text-editorial-black outline-none transition-all focus:border-[#C5A059] focus:bg-white font-serif italic text-lg shadow-sm placeholder:text-editorial-black/10 resize-none"
+                className="w-full bg-editorial-black/[0.02] border border-editorial-black/5 rounded-2xl py-4 md:py-5 pl-12 pr-4 text-editorial-black outline-none transition-all focus:border-[#C5A059] focus:bg-white font-serif italic text-lg shadow-sm placeholder:text-editorial-black/10 resize-none"
               />
             </div>
           </div>
@@ -147,7 +147,7 @@ export function CourseForm({ course, onSuccess }: CourseFormProps) {
                   name="banner"
                   type="file"
                   accept="image/*"
-                  className="w-full bg-editorial-black/[0.02] border border-editorial-black/5 rounded-2xl py-5 pl-12 pr-4 text-editorial-black outline-none transition-all focus:border-[#C5A059] focus:bg-white font-serif italic text-sm shadow-sm file:mr-4 file:py-1 file:px-4 file:rounded-full file:border-0 file:text-[9px] file:font-black file:bg-[#C5A059]/10 file:text-[#C5A059] hover:file:bg-[#C5A059]/20"
+                  className="w-full bg-editorial-black/[0.02] border border-editorial-black/5 rounded-2xl py-4 md:py-5 pl-12 pr-4 text-editorial-black outline-none transition-all focus:border-[#C5A059] focus:bg-white font-serif italic text-sm shadow-sm file:mr-4 file:py-1 file:px-4 file:rounded-full file:border-0 file:text-[9px] file:font-black file:bg-[#C5A059]/10 file:text-[#C5A059] hover:file:bg-[#C5A059]/20"
                 />
                 {course?.banner_url && (
                   <input type="hidden" name="existingBannerUrl" value={course.banner_url} />
@@ -167,7 +167,7 @@ export function CourseForm({ course, onSuccess }: CourseFormProps) {
                 <button
                   type="button"
                   onClick={() => setIsFree(true)}
-                  className={`flex-1 py-4 px-4 relative z-10 text-[10px] font-black transition-colors uppercase tracking-widest ${isFree ? "text-editorial-black font-black" : "text-editorial-black/30"
+                  className={`flex-1 py-4 px-2 md:px-4 relative z-10 text-[9px] md:text-[10px] font-black transition-colors uppercase tracking-widest ${isFree ? "text-editorial-black font-black" : "text-editorial-black/30"
                     }`}
                 >
                   Complimentary
@@ -175,7 +175,7 @@ export function CourseForm({ course, onSuccess }: CourseFormProps) {
                 <button
                   type="button"
                   onClick={() => setIsFree(false)}
-                  className={`flex-1 py-4 px-4 relative z-10 text-[10px] font-black transition-colors uppercase tracking-widest ${!isFree ? "text-[#C5A059] font-black" : "text-editorial-black/30"
+                  className={`flex-1 py-4 px-2 md:px-4 relative z-10 text-[9px] md:text-[10px] font-black transition-colors uppercase tracking-widest ${!isFree ? "text-[#C5A059] font-black" : "text-editorial-black/30"
                     }`}
                 >
                   Premium
@@ -206,20 +206,20 @@ export function CourseForm({ course, onSuccess }: CourseFormProps) {
                             setPrice(p);
                             const updatedOffered = calculateOfferedPrice(p, discountPercentage);
                             setOfferedPrice(updatedOffered);
-                            
+
                             // Authoritative Plan Synchronization
                             if (plans.length === 1 && plans[0].durationDays === 90) {
-                               setPlans([{ ...plans[0], price: updatedOffered || p }]);
+                              setPlans([{ ...plans[0], price: updatedOffered || p }]);
                             }
                           }}
                           placeholder="49.99"
                           required={!isFree}
-                          className="w-full bg-editorial-black/[0.02] border border-editorial-black/5 rounded-2xl py-5 pl-12 pr-4 text-editorial-black outline-none transition-all focus:border-[#C5A059] focus:bg-white font-black text-xl shadow-sm placeholder:text-editorial-black/10"
+                          className="w-full bg-editorial-black/[0.02] border border-editorial-black/5 rounded-2xl py-4 md:py-5 pl-12 pr-4 text-editorial-black outline-none transition-all focus:border-[#C5A059] focus:bg-white font-black text-lg md:text-xl shadow-sm placeholder:text-editorial-black/10"
                         />
                       </div>
                     </div>
 
-                    <div className="grid grid-cols-2 gap-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                       {/* Offered Price */}
                       <div className="space-y-2">
                         <label className="text-[10px] font-black text-editorial-black/40 ml-2 uppercase tracking-widest">Entry Offer</label>
@@ -235,10 +235,10 @@ export function CourseForm({ course, onSuccess }: CourseFormProps) {
                               const o = parseFloat(e.target.value) || 0;
                               setOfferedPrice(o);
                               setDiscountPercentage(calculateDiscount(price, o));
-                              
+
                               // Authoritative Plan Synchronization
                               if (plans.length === 1 && plans[0].durationDays === 90) {
-                                 setPlans([{ ...plans[0], price: o }]);
+                                setPlans([{ ...plans[0], price: o }]);
                               }
                             }}
                             placeholder="39.99"
@@ -286,7 +286,7 @@ export function CourseForm({ course, onSuccess }: CourseFormProps) {
                 <button
                   type="button"
                   onClick={() => setShowPlanForm(!showPlanForm)}
-                  className="h-10 w-10 flex items-center justify-center border border-editorial-black/10 rounded-full hover:border-editorial-black transition-all"
+                  className="h-10 w-10 flex items-center justify-center border border-editorial-black/10 rounded-full hover:border-editorial-black hover:bg-editorial-black shadow-sm text-editorial-black hover:text-white transition-all"
                 >
                   <Plus className="h-4 w-4" />
                 </button>
@@ -294,18 +294,18 @@ export function CourseForm({ course, onSuccess }: CourseFormProps) {
 
               <div className="grid gap-4">
                 {plans.map((plan, i) => (
-                  <div key={i} className="p-6 bg-editorial-black/[0.02] border border-editorial-black/5 rounded-2xl flex justify-between items-center group">
-                    <div className="flex items-center space-x-4">
-                      <div className="h-10 w-10 bg-white rounded-xl shadow-sm border border-editorial-black/5 flex items-center justify-center">
-                        <Clock className="h-4 w-4 text-editorial-black/20" />
+                  <div key={i} className="p-4 md:p-6 bg-editorial-black/[0.02] border border-editorial-black/5 rounded-2xl flex justify-between items-center group">
+                    <div className="flex items-center space-x-3 md:space-x-4 min-w-0">
+                      <div className="h-10 w-10 bg-white rounded-xl shadow-sm border border-editorial-black/5 flex items-center justify-center shrink-0">
+                        <Clock className="h-4 w-4 text-editorial-black/40" />
                       </div>
-                      <div>
-                        <p className="text-sm font-serif italic text-editorial-black">{plan.name}</p>
+                      <div className="min-w-0">
+                        <p className="text-sm font-serif italic text-editorial-black truncate">{plan.name}</p>
                         <p className="text-[9px] font-black uppercase tracking-widest text-[#C5A059]">{plan.durationDays || plan.duration_days} Days Access</p>
                       </div>
                     </div>
-                    <div className="flex items-center space-x-4">
-                      <span className="text-lg font-serif italic text-editorial-black">₹{plan.price}</span>
+                    <div className="flex items-center space-x-2 md:space-x-4 shrink-0">
+                      <span className="text-base md:text-lg font-serif italic text-editorial-black whitespace-nowrap">₹{plan.price}</span>
                       <button
                         type="button"
                         onClick={() => setPlans(plans.filter((_, idx) => idx !== i))}

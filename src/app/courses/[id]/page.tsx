@@ -24,12 +24,12 @@ export default async function CoursePage({ params }: { params: Promise<{ id: str
          <Navbar />
 
          {/* Dynamic Hero Section */}
-         <div className="relative pt-32 pb-20 overflow-hidden border-b border-editorial-black/5">
+         <div className="relative pt-20 md:pt-32 pb-12 md:pb-20 overflow-hidden border-b border-editorial-black/5">
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
-               <div className="grid gap-16 lg:grid-cols-2 lg:items-center">
+               <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
                   {/* Left: Info */}
-                  <div className="space-y-8">
+                  <div className="space-y-6 md:space-y-8">
                      <div className="inline-flex items-center space-x-3">
                         <div className="h-1 w-10 bg-[#C5A059]" />
                         <span className="text-[10px] font-black uppercase tracking-[0.4em] text-[#C5A059]">
@@ -37,11 +37,11 @@ export default async function CoursePage({ params }: { params: Promise<{ id: str
                         </span>
                      </div>
 
-                     <h1 className="text-5xl font-serif italic text-editorial-black md:text-6xl lg:text-8xl leading-[0.9] tracking-tighter">
+                     <h1 className="text-4xl md:text-6xl lg:text-8xl font-serif italic text-editorial-black leading-tight md:leading-[0.9] tracking-tighter">
                         {course.title}
                      </h1>
 
-                     <p className="text-2xl font-serif text-editorial-black/60 leading-tight max-w-xl">
+                     <p className="text-xl md:text-2xl font-serif text-editorial-black/60 leading-tight max-w-xl">
                         {course.headline || course.description}
                      </p>
 
@@ -135,7 +135,7 @@ export default async function CoursePage({ params }: { params: Promise<{ id: str
                   )}
                </>
             ) : (
-               <div className="mb-16 mt-8 p-8 border border-[#C5A059]/30 bg-[#C5A059]/5 flex items-center justify-between">
+               <div className="mb-16 mt-8 p-6 md:p-8 border border-[#C5A059]/30 bg-[#C5A059]/5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
                  <div>
                     <h3 className="text-2xl font-serif text-editorial-black">Active Curriculum</h3>
                     <p className="text-sm font-bold text-editorial-black/40 uppercase tracking-widest mt-1">Your enrollment is verified</p>
@@ -152,10 +152,10 @@ export default async function CoursePage({ params }: { params: Promise<{ id: str
             )}
 
             {/* Curriculum Section - Always visible as Syllabus */}
-            <div className="mt-24 border-t border-editorial-black/5 pt-24">
-               <div className="mb-16">
+            <div className="mt-16 md:mt-24 border-t border-editorial-black/5 pt-16 md:pt-24">
+               <div className="mb-12 md:mb-16">
                   <p className="text-[10px] font-black uppercase text-editorial-black/20 tracking-widest mb-4">Lessons</p>
-                  <h2 className="text-5xl font-serif italic text-editorial-black">Course Content</h2>
+                  <h2 className="text-4xl md:text-5xl font-serif italic text-editorial-black">Course Content</h2>
                </div>
                
                <div className="flex flex-col lg:flex-row gap-16 items-start">

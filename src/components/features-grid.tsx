@@ -17,7 +17,7 @@ const FeatureCard = ({ title, description, icon: Icon, color, delay }: { title: 
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay }}
       viewport={{ once: true }}
-      className="group relative flex flex-col items-center p-10 rounded-[2.5rem] border border-foreground/5 bg-background shadow-lg transition-all hover:-translate-y-2 hover:shadow-premium dark:hover:shadow-premium-dark"
+      className="group relative flex flex-col items-center p-8 md:p-10 rounded-[2rem] md:rounded-[2.5rem] border border-foreground/5 bg-background shadow-lg transition-all hover:-translate-y-2 hover:shadow-premium dark:hover:shadow-premium-dark"
     >
       <div className={`absolute inset-0 -z-10 rounded-[2.5rem] opacity-0 transition-opacity duration-300 group-hover:opacity-100 bg-gradient-to-br from-transparent via-transparent to-${colorMap[color].split(' ')[0].replace('bg-', '')}/5`} />
       
@@ -96,7 +96,7 @@ export const FeaturesGrid = () => {
   ];
 
   return (
-    <section className="py-24 lg:py-32 relative overflow-hidden" id="features">
+    <section className="py-16 md:py-24 lg:py-32 relative overflow-hidden" id="features">
       <div className="absolute top-0 right-0 -z-10 translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary-blue/5 blur-[120px]" />
       <div className="absolute bottom-0 left-0 -z-10 -translate-x-1/2 translate-y-1/2 w-[600px] h-[600px] bg-primary-purple/5 blur-[120px]" />
 
@@ -117,7 +117,7 @@ export const FeaturesGrid = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
             viewport={{ once: true }}
-            className="mt-6 text-4xl font-black tracking-tighter text-foreground sm:text-5xl lg:text-6xl"
+            className="mt-6 text-3xl font-black tracking-tighter text-foreground sm:text-5xl lg:text-6xl"
           >
             Built for <span className="text-primary-blue">Student Success</span>
           </motion.h2>
@@ -126,7 +126,7 @@ export const FeaturesGrid = () => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
             viewport={{ once: true }}
-            className="mt-6 text-xl text-foreground/50 max-w-2xl mx-auto leading-relaxed"
+            className="mt-4 md:mt-6 text-lg md:text-xl text-foreground/50 max-w-2xl mx-auto leading-relaxed"
           >
             Everything you need to find the right teacher, learn complex concepts, and achieve your educational goals.
           </motion.p>

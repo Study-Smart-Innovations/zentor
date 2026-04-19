@@ -13,13 +13,13 @@ export const HeroSection = () => {
           transition={{ duration: 1 }}
           className="flex flex-col items-center"
         >
-          <h1 className="text-4xl sm:text-5xl lg:text-[6rem] font-black leading-[1.0] tracking-tighter text-editorial-black font-serif">
+          <h1 className="text-4xl sm:text-5xl lg:text-[6rem] font-black leading-[1.1] md:leading-[1.0] tracking-tighter text-editorial-black font-serif">
             Turn <span className="text-[#C5A059] drop-shadow-[0_0_20px_rgba(197,160,89,0.1)]">Knowledge</span> <br />
             Into <span className="text-[#C5A059] drop-shadow-[0_0_20px_rgba(197,160,89,0.1)]">Impact.</span> <br />
-            <span className="text-3xl lg:text-5xl block mt-4 uppercase tracking-widest font-sans font-bold text-editorial-black/30">Learn From the Best Near You.</span>
+            <span className="text-xl sm:text-2xl lg:text-5xl block mt-6 md:mt-4 uppercase tracking-widest font-sans font-bold text-editorial-black/30">Learn From the Best Near You.</span>
           </h1>
           
-          <p className="mt-8 text-xl sm:text-2xl text-editorial-black/70 max-w-2xl leading-relaxed font-medium">
+          <p className="mt-10 md:mt-8 text-lg sm:text-2xl text-editorial-black/70 max-w-2xl leading-relaxed font-medium px-4">
             A space where teachers build their income and students build their future.
           </p>
           

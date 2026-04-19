@@ -35,7 +35,7 @@ const VideoCard = ({ title, instructor, duration, students, rating, thumbnail, d
         <span className="uppercase tracking-widest">Live Demo</span>
       </div>
     </div>
-    <div className="p-8">
+    <div className="p-6 md:p-8">
       <div className="flex items-center justify-between mb-2">
         <p className="text-[10px] font-black text-primary-purple uppercase tracking-widest">{instructor}</p>
         <div className="flex items-center space-x-1 text-primary-orange">
@@ -91,16 +91,16 @@ export const VideoSection = () => {
   ];
 
   return (
-    <section className="py-24 lg:py-32 bg-foreground/[0.01]" id="courses">
+    <section className="py-16 md:py-24 lg:py-32 bg-foreground/[0.01]" id="courses">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-8">
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 md:mb-16 gap-6 md:gap-8 text-center md:text-left">
           <div className="max-w-2xl">
             <motion.h2
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5 }}
               viewport={{ once: true }}
-              className="text-4xl font-black tracking-tighter text-foreground sm:text-5xl lg:text-6xl"
+              className="text-3xl font-black tracking-tighter text-foreground sm:text-5xl lg:text-6xl"
             >
               Explore <span className="text-primary-blue">Top-Rated</span> Courses
             </motion.h2>
@@ -109,12 +109,12 @@ export const VideoSection = () => {
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5, delay: 0.1 }}
               viewport={{ once: true }}
-              className="mt-6 text-xl text-foreground/50 leading-relaxed"
+              className="mt-4 md:mt-6 text-lg md:text-xl text-foreground/50 leading-relaxed"
             >
               Watch preview lessons from our expert teachers and start your learning journey today.
             </motion.p>
           </div>
-          <button className="flex items-center space-x-2 rounded-full border-2 border-primary-blue/20 px-8 py-4 text-sm font-black text-primary-blue transition-all hover:bg-primary-blue hover:text-white">
+          <button className="flex items-center justify-center space-x-2 rounded-full border-2 border-primary-blue/20 px-8 py-4 text-xs font-black text-primary-blue transition-all hover:bg-primary-blue hover:text-white w-full md:w-auto">
             <span>View All Courses</span>
             <BookOpen className="h-4 w-4" />
           </button>
