@@ -94,7 +94,7 @@ export default function RegisterPage() {
           animate={{ opacity: 1, y: 0 }}
           className="max-w-xl w-full"
         >
-          <div className="text-center mb-8">
+          <div className="text-center mb-4">
             <Link href="/" className="inline-block mb-4">
               <span className="text-4xl font-black tracking-tighter text-editorial-black font-serif">
                 Zentor<span className="text-[#C5A059]">.</span>
@@ -109,7 +109,7 @@ export default function RegisterPage() {
           </div>
 
           {/* Minimalist Role Switcher */}
-          <div className="flex border-b border-editorial-black/10 mb-8">
+          <div className="flex border-b border-editorial-black/10 mb-4">
             <button
               onClick={() => setRole("student")}
               className={`pb-3 px-8 text-xs font-bold uppercase tracking-widest transition-all relative ${
@@ -238,7 +238,7 @@ export default function RegisterPage() {
             )}
           </AnimatePresence>
 
-          <p className="mt-8 text-center text-[10px] font-bold uppercase tracking-widest text-editorial-black/40">
+          <p className="mt-0 text-center text-[10px] font-bold uppercase tracking-widest text-editorial-black/40">
             Enrolled already?{" "}
             <Link href="/login" className="text-editorial-black border-b border-editorial-black/20 pb-0.5 hover:border-editorial-black transition-all">
               Sign In
