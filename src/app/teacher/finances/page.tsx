@@ -162,8 +162,8 @@ export default function FinancialDashboard() {
              <BarChart3 className="h-8 w-8 text-editorial-black/20" />
           </div>
           
-          <div className="flex-1 w-full min-h-[300px]">
-            <ResponsiveContainer width="100%" height="100%">
+          <div className="flex-1 w-full h-[400px] min-h-[300px]">
+            <ResponsiveContainer width="100%" height="100%" minWidth={0}>
               <AreaChart data={chartData}>
                 <defs>
                   <linearGradient id="colorRev" x1="0" y1="0" x2="0" y2="1">
