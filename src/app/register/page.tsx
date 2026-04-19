@@ -238,7 +238,7 @@ export default function RegisterPage() {
             )}
           </AnimatePresence>
 
-          <p className="mt-0 text-center text-[10px] font-bold uppercase tracking-widest text-editorial-black/40">
+          <p className="mt-3 text-center text-[10px] font-bold uppercase tracking-widest text-editorial-black/40">
             Enrolled already?{" "}
             <Link href="/login" className="text-editorial-black border-b border-editorial-black/20 pb-0.5 hover:border-editorial-black transition-all">
               Sign In
