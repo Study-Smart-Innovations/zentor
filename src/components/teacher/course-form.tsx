@@ -22,9 +22,11 @@ export function CourseForm({ course, onSuccess }: CourseFormProps) {
   const [offeredPrice, setOfferedPrice] = useState(course?.offered_price || course?.price || 0);
   const [price, setPrice] = useState(course?.price || 0);
 
-  // --- Linguistic Plan Registry State ---
+  const [durationMonths, setDurationMonths] = useState(course?.duration_months || 1);
+  
+  // --- Dynamic Pricing Registry State ---
   const [plans, setPlans] = useState<any[]>(course?.course_plans || [
-    { name: "3-Month Access", durationDays: 90, price: course?.price || 0 }
+    { name: `${course?.duration_months || 1}-Month Full Access`, duration_days: (course?.duration_months || 1) * 30, price: course?.offered_price || course?.price || 0, isMandatory: true }
   ]);
   const [showPlanForm, setShowPlanForm] = useState(false);
   const [newPlan, setNewPlan] = useState({ name: "Monthly Access", durationDays: 30, price: "" });
@@ -47,6 +49,7 @@ export function CourseForm({ course, onSuccess }: CourseFormProps) {
 
     const formData = new FormData(e.currentTarget);
     formData.set("isFree", String(isFree));
+    formData.set("durationMonths", String(durationMonths));
     formData.set("plans", JSON.stringify(plans));
     if (course) formData.set("courseId", course.id);
 
@@ -91,9 +94,9 @@ export function CourseForm({ course, onSuccess }: CourseFormProps) {
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
-          {/* Title */}
-          <div className="grid md:grid-cols-2 gap-6">
-            <div className="space-y-2">
+          {/* Title & Duration */}
+          <div className="grid md:grid-cols-3 gap-6">
+            <div className="md:col-span-2 space-y-2">
               <label className="text-[10px] font-black text-editorial-black/40 ml-2 uppercase tracking-[0.2em]">Course Title</label>
               <div className="relative group">
                 <Book className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-editorial-black/20 transition-colors group-focus-within:text-[#C5A059]" />
@@ -101,6 +104,7 @@ export function CourseForm({ course, onSuccess }: CourseFormProps) {
                   name="title"
                   type="text"
                   required
+                  defaultValue={course?.title || ""}
                   placeholder="Mastering Advanced Mathematics"
                   className="w-full bg-editorial-black/[0.02] border border-editorial-black/5 rounded-2xl py-4 md:py-5 pl-12 pr-4 text-editorial-black outline-none transition-all focus:border-[#C5A059] focus:bg-white font-serif italic text-lg shadow-sm placeholder:text-editorial-black/10"
                 />
@@ -108,18 +112,45 @@ export function CourseForm({ course, onSuccess }: CourseFormProps) {
             </div>
 
             <div className="space-y-2">
-              <label className="text-[10px] font-black text-editorial-black/40 ml-2 uppercase tracking-[0.2em]">Academic Headline</label>
+              <label className="text-[10px] font-black text-editorial-black/40 ml-2 uppercase tracking-[0.2em]">Course Lifespan (Months)</label>
               <div className="relative group">
-                <Type className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-editorial-black/20 transition-colors group-focus-within:text-[#C5A059]" />
+                <Clock className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-editorial-black/20 transition-colors group-focus-within:text-[#C5A059]" />
                 <input
-                  name="headline"
-                  type="text"
-                  value={headline}
-                  onChange={(e) => setHeadline(e.target.value)}
-                  placeholder="Elevate your algebraic understanding..."
-                  className="w-full bg-editorial-black/[0.02] border border-editorial-black/5 rounded-2xl py-4 md:py-5 pl-12 pr-4 text-editorial-black outline-none transition-all focus:border-[#C5A059] focus:bg-white font-serif italic text-lg shadow-sm placeholder:text-editorial-black/10"
+                  type="number"
+                  min="1"
+                  max="12"
+                  value={durationMonths}
+                  onChange={(e) => {
+                    const months = parseInt(e.target.value) || 1;
+                    setDurationMonths(months);
+                    
+                    // Authoritative Sync of One-Time Access Plan
+                    setPlans(prev => {
+                       const rest = prev.filter(p => !p.isMandatory && !p.name.includes("Full Access"));
+                       return [
+                          { name: `${months}-Month Full Access`, duration_days: months * 30, price: offeredPrice, isMandatory: true },
+                          ...rest
+                       ];
+                    });
+                  }}
+                  className="w-full bg-editorial-black/[0.02] border border-editorial-black/5 rounded-2xl py-4 md:py-5 pl-12 pr-4 text-editorial-black outline-none transition-all focus:border-[#C5A059] focus:bg-white font-black text-lg shadow-sm"
                 />
               </div>
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <label className="text-[10px] font-black text-editorial-black/40 ml-2 uppercase tracking-[0.2em]">Academic Headline</label>
+            <div className="relative group">
+              <Type className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-editorial-black/20 transition-colors group-focus-within:text-[#C5A059]" />
+              <input
+                name="headline"
+                type="text"
+                value={headline}
+                onChange={(e) => setHeadline(e.target.value)}
+                placeholder="Elevate your algebraic understanding..."
+                className="w-full bg-editorial-black/[0.02] border border-editorial-black/5 rounded-2xl py-4 md:py-5 pl-12 pr-4 text-editorial-black outline-none transition-all focus:border-[#C5A059] focus:bg-white font-serif italic text-lg shadow-sm placeholder:text-editorial-black/10"
+              />
             </div>
           </div>
 
@@ -131,6 +162,7 @@ export function CourseForm({ course, onSuccess }: CourseFormProps) {
               <textarea
                 name="description"
                 rows={4}
+                defaultValue={course?.description || ""}
                 placeholder="Compose a compelling narrative for your students..."
                 className="w-full bg-editorial-black/[0.02] border border-editorial-black/5 rounded-2xl py-4 md:py-5 pl-12 pr-4 text-editorial-black outline-none transition-all focus:border-[#C5A059] focus:bg-white font-serif italic text-lg shadow-sm placeholder:text-editorial-black/10 resize-none"
               />
@@ -208,9 +240,11 @@ export function CourseForm({ course, onSuccess }: CourseFormProps) {
                             setOfferedPrice(updatedOffered);
 
                             // Authoritative Plan Synchronization
-                            if (plans.length === 1 && plans[0].durationDays === 90) {
-                              setPlans([{ ...plans[0], price: updatedOffered || p }]);
-                            }
+                            setPlans(prev => prev.map(pl => 
+                               pl.isMandatory || pl.name.includes("Full Access") 
+                               ? { ...pl, price: updatedOffered || p }
+                               : pl
+                            ));
                           }}
                           placeholder="49.99"
                           required={!isFree}
@@ -233,13 +267,15 @@ export function CourseForm({ course, onSuccess }: CourseFormProps) {
                             value={offeredPrice}
                             onChange={(e) => {
                               const o = parseFloat(e.target.value) || 0;
-                              setOfferedPrice(o);
+                               setOfferedPrice(o);
                               setDiscountPercentage(calculateDiscount(price, o));
 
                               // Authoritative Plan Synchronization
-                              if (plans.length === 1 && plans[0].durationDays === 90) {
-                                setPlans([{ ...plans[0], price: o }]);
-                              }
+                              setPlans(prev => prev.map(pl => 
+                                 pl.isMandatory || pl.name.includes("Full Access") 
+                                 ? { ...pl, price: o }
+                                 : pl
+                              ));
                             }}
                             placeholder="39.99"
                             className="w-full bg-editorial-black/[0.02] border border-editorial-black/5 rounded-2xl py-4 pl-10 pr-4 text-[#C5A059] outline-none transition-all focus:border-[#C5A059] focus:bg-white font-black text-lg shadow-sm placeholder:text-editorial-black/10"
@@ -301,18 +337,23 @@ export function CourseForm({ course, onSuccess }: CourseFormProps) {
                       </div>
                       <div className="min-w-0">
                         <p className="text-sm font-serif italic text-editorial-black truncate">{plan.name}</p>
-                        <p className="text-[9px] font-black uppercase tracking-widest text-[#C5A059]">{plan.durationDays || plan.duration_days} Days Access</p>
+                        <p className="text-[9px] font-black uppercase tracking-widest text-[#C5A059]">{plan.duration_days || plan.durationDays} Days Access</p>
                       </div>
                     </div>
                     <div className="flex items-center space-x-2 md:space-x-4 shrink-0">
                       <span className="text-base md:text-lg font-serif italic text-editorial-black whitespace-nowrap">₹{plan.price}</span>
-                      <button
-                        type="button"
-                        onClick={() => setPlans(plans.filter((_, idx) => idx !== i))}
-                        className="opacity-0 group-hover:opacity-100 p-2 text-red-300 hover:text-red-500 transition-all"
-                      >
-                        <Trash2 className="h-4 w-4" />
-                      </button>
+                      {(!plan.isMandatory && !plan.name.includes("Full Access")) && (
+                        <button
+                          type="button"
+                          onClick={() => setPlans(plans.filter((_, idx) => idx !== i))}
+                          className="opacity-0 group-hover:opacity-100 p-2 text-red-300 hover:text-red-500 transition-all"
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </button>
+                      )}
+                      {(plan.isMandatory || plan.name.includes("Full Access")) && (
+                         <div className="px-3 py-1 bg-editorial-black/5 text-[8px] font-black uppercase tracking-widest text-editorial-black/30 rounded-full">Mandatory</div>
+                      )}
                     </div>
                   </div>
                 ))}
@@ -331,17 +372,21 @@ export function CourseForm({ course, onSuccess }: CourseFormProps) {
                           onChange={(e) => {
                             const val = e.target.value;
                             let days = 30;
-                            if (val.includes("Quarterly")) days = 90;
-                            if (val.includes("Half")) days = 180;
-                            if (val.includes("Yearly")) days = 365;
+                            if (val.includes("Quarterly")) {
+                              days = 90;
+                            } else if (val.includes("Half")) {
+                              days = 180;
+                            } else if (val.includes("Yearly")) {
+                              days = 365;
+                            }
                             setNewPlan({ ...newPlan, name: val, durationDays: days });
                           }}
                           className="w-full bg-editorial-black/[0.02] border-b-2 border-editorial-black/10 px-0 py-3 text-lg font-serif text-editorial-black outline-none appearance-none"
                         >
                           <option value="Monthly Access">Monthly (30 Days)</option>
-                          <option value="Quarterly Access">Quarterly (90 Days)</option>
-                          <option value="Half-Yearly Access">Half-Yearly (180 Days)</option>
-                          <option value="Yearly Access">Yearly (365 Days)</option>
+                          {durationMonths >= 3 && <option value="Quarterly Access">Quarterly (90 Days)</option>}
+                          {durationMonths >= 6 && <option value="Half-Yearly Access">Half-Yearly (180 Days)</option>}
+                          {durationMonths >= 12 && <option value="Yearly Access">Yearly (365 Days)</option>}
                         </select>
                       </div>
                       <div className="space-y-2">

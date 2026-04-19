@@ -18,6 +18,7 @@ export async function createCourse(formData: FormData) {
   const offeredPrice = formData.get("offeredPrice") ? parseFloat(formData.get("offeredPrice") as string) : null;
   const discountPercentage = formData.get("discountPercentage") ? parseFloat(formData.get("discountPercentage") as string) : 0;
   const isFree = formData.get("isFree") === "true";
+  const durationMonths = parseInt(formData.get("durationMonths") as string || "1");
   const bannerFile = formData.get("banner") as File;
   let bannerUrl = null;
 
@@ -42,6 +43,7 @@ export async function createCourse(formData: FormData) {
         offered_price: isFree ? 0 : (offeredPrice || price),
         discount_percentage: isFree ? 0 : discountPercentage,
         is_free: isFree,
+        duration_months: durationMonths,
         banner_url: bannerUrl
       })
       .select()
@@ -146,6 +148,7 @@ export async function updateCourse(formData: FormData) {
   const offeredPrice = formData.get("offeredPrice") ? parseFloat(formData.get("offeredPrice") as string) : null;
   const discountPercentage = formData.get("discountPercentage") ? parseFloat(formData.get("discountPercentage") as string) : 0;
   const isFree = formData.get("isFree") === "true";
+  const durationMonths = parseInt(formData.get("durationMonths") as string || "1");
   const bannerFile = formData.get("banner") as File;
   let bannerUrl = formData.get("existingBannerUrl") as string || null;
 
@@ -169,6 +172,7 @@ export async function updateCourse(formData: FormData) {
         offered_price: isFree ? 0 : (offeredPrice || price),
         discount_percentage: isFree ? 0 : discountPercentage,
         is_free: isFree,
+        duration_months: durationMonths,
         banner_url: bannerUrl,
         updated_at: new Date().toISOString()
       })
