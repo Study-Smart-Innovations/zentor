@@ -39,8 +39,11 @@ export default function AboutPage() {
             Where Local Teachers <br />
             <span className="text-[#C5A059] italic">Become Global Mentors.</span>
           </motion.h1>
-          <motion.p variants={itemVariants} className="max-w-2xl text-xl text-editorial-black/70 leading-relaxed font-serif italic">
+          <motion.p variants={itemVariants} className="max-w-2xl text-xl text-editorial-black/70 leading-relaxed font-serif italic mb-8">
             &ldquo;We empower passionate educators to teach online and help students learn smarter, grow faster, and achieve more.&rdquo;
+          </motion.p>
+          <motion.p variants={itemVariants} className="text-[10px] font-black uppercase tracking-[0.3em] text-[#C5A059]">
+            An initiative by Study Smart Innovations
           </motion.p>
         </motion.div>
       </section>

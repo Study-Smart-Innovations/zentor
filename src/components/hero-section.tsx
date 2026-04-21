@@ -31,6 +31,10 @@ export const HeroSection = () => {
             </Link>
           </div>
 
+          <p className="mt-6 text-[10px] font-black uppercase tracking-[0.3em] text-[#C5A059] animate-pulse">
+            An initiative by Study Smart Innovations
+          </p>
+
           <p className="mt-16 text-[9px] text-editorial-black/20 font-medium uppercase tracking-[0.5em] italic">
             Credit: kras99 / Adobe Stock
           </p>
