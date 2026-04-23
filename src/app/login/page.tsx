@@ -1,169 +1,146 @@
 "use client"
 
-import { useState } from "react";
-import Link from "next/link";
-import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import { motion } from "framer-motion";
-import { Eye, EyeOff } from "lucide-react";
-import { Navbar } from "@/components/navbar";
+import { useState } from "react"
+import Link from "next/link"
+import { signIn } from "next-auth/react"
+import { useRouter } from "next/navigation"
+import { motion } from "framer-motion"
+import { Eye, EyeOff, Lock, Mail, ArrowRight } from "lucide-react"
+import { Navbar } from "@/components/navbar"
+import { GlassCard } from "@/components/ui/glass-card"
+import { FloatingInput } from "@/components/ui/floating-input"
+import { RoleToggle } from "@/components/ui/role-toggle"
 
-// Optimized for Zentor Academic Portal (SSR Sync)
-
-type Role = "student" | "teacher";
+type Role = "student" | "teacher"
 
 export default function LoginPage() {
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
-  const [role, setRole] = useState<Role>("student");
-  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false)
+  const [error, setError] = useState("")
+  const [showPassword, setShowPassword] = useState(false)
+  const [role, setRole] = useState<Role>("student")
+  const router = useRouter()
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setIsLoading(true);
-    setError("");
+    e.preventDefault()
+    setIsLoading(true)
+    setError("")
 
-    const formData = new FormData(e.currentTarget);
-    const email = formData.get("email") as string;
-    const password = formData.get("password") as string;
+    const formData = new FormData(e.currentTarget)
+    const email = formData.get("email") as string
+    const password = formData.get("password") as string
 
     try {
       const result = await signIn("credentials", {
         email,
         password,
-        role, // Pass the selected role to authorize
+        role,
         redirect: false,
-      });
+      })
 
       if (result?.error) {
-        setError("Invalid email or password.");
+        setError("Invalid email or password.")
       } else {
-        if (role === "teacher") {
-          router.push("/teacher/dashboard");
-        } else {
-          router.push("/dashboard");
-        }
-        router.refresh();
+        router.push("/profile")
+        router.refresh()
       }
     } catch (err) {
-      setError("An unexpected error occurred.");
+      setError("An unexpected error occurred.")
     } finally {
-      setIsLoading(false);
+      setIsLoading(false)
     }
-  };
+  }
+
   return (
-    <main className="min-h-screen overflow-y-auto flex flex-col bg-editorial-cream pb-20">
+    <main className="min-h-screen flex flex-col bg-editorial-cream paper-texture transition-colors duration-500">
       <Navbar />
-      <div className="flex-1 flex items-center justify-center p-6 lg:p-12">
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="max-w-xl w-full"
-        >
+      <div className="flex-1 flex items-center justify-center p-4 md:p-12">
+        <div className="max-w-md w-full">
           <div className="text-center mb-10">
-            <Link href="/" className="inline-block mb-8">
-              <span className="text-4xl font-black tracking-tighter text-editorial-black font-serif">
-                Zentor<span className="text-[#C5A059]">.</span>
-              </span>
-            </Link>
-            <h1 className="text-5xl font-serif text-editorial-black mb-4 tracking-tight">
-              Welcome Back.
-            </h1>
-            <p className="text-editorial-black/60 font-medium uppercase tracking-[0.2em] text-[10px]">
-              Access Your Personal Academic Portal
+            <motion.h1 
+              initial={{ opacity: 0, y: -20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="text-4xl md:text-5xl font-serif text-editorial-black mb-4 tracking-tight"
+            >
+              Zentor<span className="text-editorial-accent">.</span>
+            </motion.h1>
+            <p className="text-editorial-black/40 font-bold uppercase tracking-[0.3em] text-[9px] md:text-[10px]">
+              Institutional Access Protocol
             </p>
           </div>
 
-          {/* Minimalist Role Switcher */}
-          <div className="flex border-b border-editorial-black/10 mb-10">
-            <button
-              onClick={() => setRole("student")}
-              className={`pb-4 px-8 text-xs font-bold uppercase tracking-widest transition-all relative ${
-                role === "student" ? "text-editorial-black" : "text-editorial-black/30"
-              }`}
-            >
-              Student
-              {role === "student" && (
-                <motion.div layoutId="activeTab" className="absolute bottom-0 left-0 right-0 h-0.5 bg-editorial-black" />
+          <div className="royal-card">
+            <div className="mb-8">
+              <p className="text-xs font-bold uppercase tracking-widest text-editorial-accent/60 mb-4 text-center">Identity Verification</p>
+              <RoleToggle role={role} setRole={setRole} />
+            </div>
+
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="relative group">
+                <FloatingInput 
+                  label="Email Address" 
+                  name="email" 
+                  type="email" 
+                  required 
+                  className="peer"
+                />
+              </div>
+
+              <div className="space-y-1">
+                <div className="relative group">
+                  <FloatingInput 
+                    label="Password" 
+                    name="password" 
+                    type={showPassword ? "text" : "password"} 
+                    required 
+                    className="peer"
+                  />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-4 top-6 text-editorial-accent/40 hover:text-editorial-accent z-10 transition-colors"
+                  >
+                    {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                  </button>
+                </div>
+                <div className="flex justify-end pt-2">
+                  <Link
+                    href="/forgot-password"
+                    className="text-[10px] font-bold text-editorial-accent/60 hover:text-editorial-accent uppercase tracking-widest transition-all"
+                  >
+                    Recovery
+                  </Link>
+                </div>
+              </div>
+
+              {error && (
+                <motion.p 
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  className="p-4 bg-red-50 text-red-600 text-[10px] font-bold uppercase tracking-widest rounded-xl text-center"
+                >
+                  {error}
+                </motion.p>
               )}
-            </button>
-            <button
-              onClick={() => setRole("teacher")}
-              className={`pb-4 px-8 text-xs font-bold uppercase tracking-widest transition-all relative ${
-                role === "teacher" ? "text-editorial-black" : "text-editorial-black/30"
-              }`}
-            >
-              Teacher
-              {role === "teacher" && (
-                <motion.div layoutId="activeTab" className="absolute bottom-0 left-0 right-0 h-0.5 bg-editorial-black" />
-              )}
-            </button>
+
+              <button
+                type="submit"
+                disabled={isLoading}
+                className="w-full py-4 bg-editorial-accent text-editorial-black rounded-xl font-bold uppercase tracking-widest flex items-center justify-center gap-2 hover:opacity-90 transition-all disabled:opacity-50"
+              >
+                {isLoading ? "Authenticating..." : "Sign In to Portal"}
+                {!isLoading && <ArrowRight className="h-4 w-4" />}
+              </button>
+            </form>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="space-y-1">
-              <label className="text-[10px] font-bold text-editorial-black/40 uppercase tracking-widest ml-1">Email Address</label>
-              <input
-                name="email"
-                type="email"
-                required
-                placeholder="alex@zentor.com"
-                className="w-full bg-transparent border-b border-editorial-black/10 py-3 px-1 text-editorial-black outline-none transition-all focus:border-editorial-black placeholder:text-editorial-black/20"
-              />
-            </div>
-
-            <div className="space-y-1">
-              <div className="flex justify-between items-center px-1">
-                <label className="text-[10px] font-bold text-editorial-black/40 uppercase tracking-widest">Password</label>
-                <Link
-                  href="/forgot-password"
-                  className="text-[10px] font-bold text-editorial-black/40 hover:text-editorial-black uppercase tracking-widest border-b border-transparent hover:border-editorial-black transition-all"
-                >
-                  Recovery
-                </Link>
-              </div>
-              <div className="relative">
-                <input
-                  name="password"
-                  type={showPassword ? "text" : "password"}
-                  required
-                  placeholder="••••••••"
-                  className="w-full bg-transparent border-b border-editorial-black/10 py-3 px-1 text-editorial-black outline-none transition-all focus:border-editorial-black placeholder:text-editorial-black/20"
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-1 top-1/2 -translate-y-1/2 text-editorial-black/20 hover:text-editorial-black transition-colors"
-                >
-                  {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                </button>
-              </div>
-            </div>
-
-            {error && (
-              <p className="text-red-900 text-[10px] font-bold uppercase tracking-wider bg-red-50 p-3">
-                {error}
-              </p>
-            )}
-
-            <button
-              type="submit"
-              disabled={isLoading}
-              className="w-full bg-editorial-black text-white py-5 text-xs font-bold uppercase tracking-[0.3em] transition-all hover:bg-editorial-black/90 disabled:opacity-50 mt-4"
-            >
-              {isLoading ? "Authenticating..." : "Sign In"}
-            </button>
-          </form>
-
-          <p className="mt-8 text-center text-[10px] font-bold uppercase tracking-widest text-editorial-black/40">
+          <p className="mt-8 text-center text-[10px] font-bold uppercase tracking-[0.2em] text-editorial-black/40">
             New to the circle?{" "}
-            <Link href="/register" className="text-editorial-black border-b border-editorial-black/20 pb-0.5 hover:border-editorial-black">
-              Create Account
+            <Link href="/register" className="text-editorial-accent border-b border-editorial-accent/20 pb-0.5 hover:border-editorial-accent transition-all">
+              Establish Your Presence
             </Link>
           </p>
-        </motion.div>
+        </div>
       </div>
     </main>
-  );
+  )
 }

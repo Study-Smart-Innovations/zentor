@@ -20,37 +20,41 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       async authorize(credentials) {
         if (!credentials?.email || !credentials?.password || !credentials?.role) return null;
 
-        const table = credentials.role === "teacher" ? "teachers" : "students";
+        const table = credentials.role === "teacher" ? "teacher_profiles" : "student_profiles";
 
-        const { data: user, error } = await supabaseAdmin
+        // 1. Verify credentials using Supabase Auth
+        const { data: authData, error: authError } = await supabaseAdmin.auth.signInWithPassword({
+          email: credentials.email as string,
+          password: credentials.password as string,
+        });
+
+        if (authError || !authData.user) {
+          console.error("Auth error:", authError?.message);
+          return null;
+        }
+
+        const userId = authData.user.id;
+
+        // 2. Fetch profile from our database
+        const { data: profile, error: profileError } = await supabaseAdmin
           .from(table)
           .select("*")
-          .eq("email", credentials.email)
+          .eq("user_id", userId)
           .single();
 
-        if (error || !user) return null;
-
-        const isPasswordCorrect = await bcrypt.compare(
-          credentials.password as string,
-          user.password
-        );
-
-        if (!isPasswordCorrect) return null;
-
-        // Update last login
-        await supabaseAdmin
-          .from(table)
-          .update({ last_login: new Date().toISOString() })
-          .eq("id", user.id);
+        if (profileError || !profile) {
+          console.error("Profile fetch error:", profileError?.message);
+          return null;
+        }
 
         return {
-          id: user.id,
-          name: user.name,
-          email: user.email,
+          id: userId,
+          name: profile.full_name,
+          email: credentials.email as string,
           role: credentials.role as string,
-          paid: user.paid || false,
-          active: user.active ?? true,
-          teacherCode: user.teacher_code || null,
+          teacherCode: authData.user.user_metadata?.teacher_code || null,
+          paid: false, // Defaulting as not present in teacher_profiles schema
+          active: true, // Defaulting as not present in teacher_profiles schema
         };
       },
     }),

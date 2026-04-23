@@ -273,22 +273,26 @@ export async function getTeacherCourses() {
   const session = await auth();
   if (!session?.user?.id) return [];
 
-  const { data, error } = await supabaseAdmin
-    .from("courses")
-    .select("*")
-    .eq("teacher_id", session.user.id)
-    .order("created_at", { ascending: false });
+  try {
+    const { data, error } = await supabaseAdmin
+      .from("courses")
+      .select("*")
+      .eq("teacher_id", session.user.id)
+      .order("created_at", { ascending: false });
 
-  if (error) {
-    console.error("Fetch Courses Error:", error);
+    if (error) {
+      if (error.code === 'PGRST205') return [];
+      console.error("Fetch Courses Error:", error);
+      return [];
+    }
+
+    return data.map((course: any) => ({
+      ...course,
+      counts: { notes: 0, videos: 0, live: 0 }
+    }));
+  } catch (err) {
     return [];
   }
-
-  // Return simplified course data without contents
-  return data.map((course: any) => ({
-    ...course,
-    counts: { notes: 0, videos: 0, live: 0 }
-  }));
 }
 
 export async function getCourseWithContent(courseId: string) {
@@ -376,22 +380,22 @@ export async function getTeacherAnalytics() {
 
   try {
     // 1. Get all courses for this teacher
-    const { data: courses } = await supabaseAdmin
+    const { data: courses, error: courseError } = await supabaseAdmin
       .from("courses")
       .select("id, price")
       .eq("teacher_id", session.user.id);
 
-    if (!courses || courses.length === 0) return { totalStudents: 0, totalRevenue: 0, activeCourses: 0, averageRevenue: 0 };
+    if (courseError || !courses || courses.length === 0) return { totalStudents: 0, totalRevenue: 0, activeCourses: 0, averageRevenue: 0 };
 
     const courseIds = courses.map(c => c.id);
 
     // 2. Get enrollments for these courses
-    const { data: enrollments } = await supabaseAdmin
+    const { data: enrollments, error: enrollError } = await supabaseAdmin
       .from("enrollments")
       .select("student_id, course_id, price_paid")
       .in("course_id", courseIds);
 
-    if (!enrollments || enrollments.length === 0) return { totalStudents: 0, totalRevenue: 0, activeCourses: courseIds.length, averageRevenue: 0 };
+    if (enrollError || !enrollments || enrollments.length === 0) return { totalStudents: 0, totalRevenue: 0, activeCourses: courseIds.length, averageRevenue: 0 };
 
     // 3. Aggregate data
     const uniqueStudents = new Set(enrollments.map(e => e.student_id));
@@ -408,8 +412,7 @@ export async function getTeacherAnalytics() {
       averageRevenue: uniqueStudents.size > 0 ? totalRevenue / uniqueStudents.size : 0
     };
   } catch (err) {
-    console.error("Analytics Error:", err);
-    return { error: "Failed to load analytics" };
+    return { totalStudents: 0, totalRevenue: 0, activeCourses: 0, averageRevenue: 0 };
   }
 }
 
@@ -480,47 +483,38 @@ export async function getFinancialOverview() {
   const session = await auth();
   if (!session?.user?.id) return { error: "Unauthorized" };
 
+  const defaultFinances = { 
+    history: Array.from({ length: 60 }, (_, i) => {
+      const d = new Date();
+      d.setMonth(d.getMonth() - (59 - i));
+      return {
+        name: d.toLocaleDateString(undefined, { month: 'short', year: '2-digit' }),
+        revenue: 0,
+        enrollments: 0
+      };
+    }), 
+    stats: { lifetimeRevenue: 0, mrr: 0, averageTransaction: 0 } 
+  };
+
   try {
     // 1. Get courses
-    const { data: courses } = await supabaseAdmin
+    const { data: courses, error: courseError } = await supabaseAdmin
       .from("courses")
       .select("id, title, price")
       .eq("teacher_id", session.user.id);
     
-    if (!courses || courses.length === 0) return { 
-      history: Array.from({ length: 60 }, (_, i) => {
-        const d = new Date();
-        d.setMonth(d.getMonth() - (59 - i));
-        return {
-          name: d.toLocaleDateString(undefined, { month: 'short', year: '2-digit' }),
-          revenue: 0,
-          enrollments: 0
-        };
-      }), 
-      stats: { lifetimeRevenue: 0, mrr: 0, averageTransaction: 0 } 
-    };
+    if (courseError || !courses || courses.length === 0) return defaultFinances;
     
     const courseIds = courses.map(c => c.id);
 
     // 2. Get enrollments with pricing info
-    const { data: enrollments } = await supabaseAdmin
+    const { data: enrollments, error: enrollError } = await supabaseAdmin
       .from("enrollments")
       .select("price_paid, purchased_at")
       .in("course_id", courseIds)
       .order("purchased_at", { ascending: true });
 
-    if (!enrollments || enrollments.length === 0) return { 
-      history: Array.from({ length: 60 }, (_, i) => {
-        const d = new Date();
-        d.setMonth(d.getMonth() - (59 - i));
-        return {
-          name: d.toLocaleDateString(undefined, { month: 'short', year: '2-digit' }),
-          revenue: 0,
-          enrollments: 0
-        };
-      }), 
-      stats: { lifetimeRevenue: 0, mrr: 0, averageTransaction: 0 } 
-    };
+    if (enrollError || !enrollments || enrollments.length === 0) return defaultFinances;
 
     // 3. Prepare Time Series (Last 5 Years)
     const history: any[] = [];
@@ -567,7 +561,6 @@ export async function getFinancialOverview() {
       }
     };
   } catch (err) {
-    console.error("Financial Overview Error:", err);
-    return { error: "Failed to load financial data" };
+    return defaultFinances;
   }
 }

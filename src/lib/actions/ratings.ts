@@ -70,7 +70,7 @@ export async function submitRating(courseId: string, courseRating: number, teach
       const avgTeacher = teacherRatings.reduce((acc, curr) => acc + Number(curr.teacher_rating), 0) / teacherRatings.length;
 
       await supabaseAdmin
-        .from("teachers")
+        .from("teacher_profiles")
         .update({
           rating: avgTeacher.toFixed(1),
           rating_count: teacherRatings.length

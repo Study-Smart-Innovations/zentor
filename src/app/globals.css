@@ -3,27 +3,42 @@
 @theme inline {
   --font-serif: var(--font-serif), Georgia, serif;
   --font-sans: var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-display), "Inter", sans-serif;
 
-  --color-editorial-cream: #F7F4ED;
+  --color-editorial-cream: #F3F0E8;
   --color-editorial-black: #002147;
   --color-editorial-accent: #C5A059;
 
+  --color-primary: #002147;
+  --color-secondary: #C5A059;
+  --color-accent: #C5A059;
+
   --color-foreground: rgb(var(--foreground));
   --color-background: rgb(var(--background));
+
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+  --radius-3xl: 2rem;
 }
 
 /* Editorial Pro Palette */
 :root {
-  --background: 247 244 237; /* #F7F4ED - Cream */
+  --background: 243 240 232; /* #F3F0E8 - Deeper Vintage Cream */
   --foreground: 0 33 71;     /* #002147 - Oxford Blue */
   --accent: 197 160 89;      /* #C5A059 - Burnished Gold */
+  
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.3);
 }
 
 /* Dark mode fallback remains refined charcoal */
 .dark {
-  --background: 18 18 18;
+  --background: 10 10 10;
   --foreground: 247 244 237;
   --accent: 197 160 89;
+
+  --glass-bg: rgba(0, 0, 0, 0.5);
+  --glass-border: rgba(255, 255, 255, 0.1);
 }
 
 body {
@@ -38,18 +53,88 @@ h1, h2, h3, h4, .font-serif {
   font-family: var(--font-serif);
 }
 
-.editorial-btn {
-  @apply rounded-full bg-editorial-black text-white px-8 py-3 font-bold transition-all hover:opacity-80 active:scale-95;
+@utility glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
 }
 
-.dark .editorial-btn {
-  @apply bg-editorial-cream text-editorial-black;
+.paper-texture {
+  position: relative;
+}
+
+.paper-texture::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.03;
+  pointer-events: none;
+  background-image: url("https://www.transparenttextures.com/patterns/natural-paper.png");
+  z-index: 0;
+}
+
+@utility glass-morphism {
+  @apply glass rounded-2xl shadow-xl;
+}
+
+.royal-card {
+  background: linear-gradient(165deg, #080C14 0%, #020408 100%);
+  border: 1px solid rgba(197, 160, 89, 0.3);
+  box-shadow: 
+    0 30px 60px -15px rgba(0, 0, 0, 0.7),
+    inset 0 0 20px rgba(197, 160, 89, 0.05);
+  @apply rounded-[2rem] md:rounded-[3rem] p-6 md:p-12 relative overflow-hidden;
+}
+
+.royal-card::before {
+  content: "";
+  @apply absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-editorial-accent/30 to-transparent;
+}
+
+.editorial-btn {
+  @apply rounded-full bg-editorial-black text-white px-8 py-3 font-bold transition-all hover:opacity-80 active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed;
 }
 
 .editorial-link {
   @apply border-b border-editorial-black/20 pb-0.5 transition-colors hover:border-editorial-black;
 }
 
-.dark .editorial-link {
-  @apply border-editorial-cream/20 hover:border-editorial-cream;
+.input-floating {
+  @apply w-full bg-black/40 border-b border-editorial-accent/20 py-4 px-4 text-editorial-cream font-medium rounded-t-2xl outline-none transition-all focus:border-editorial-accent focus:bg-black/60 placeholder:text-transparent;
+}
+
+.label-floating {
+  @apply absolute left-4 top-1 text-[10px] font-bold text-editorial-accent/40 uppercase tracking-widest transition-all pointer-events-none;
+}
+
+.input-floating:placeholder-shown + .label-floating {
+  @apply top-4 text-sm font-medium normal-case tracking-normal text-editorial-accent/40;
+}
+
+.input-floating:focus + .label-floating {
+  @apply top-1 text-[10px] font-bold uppercase tracking-widest text-editorial-accent;
+}
+
+/* Premium Input Fixes */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  -webkit-text-fill-color: #F3F0E8;
+  -webkit-box-shadow: 0 0 0px 1000px #080C14 inset;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+::selection {
+  background: rgba(197, 160, 89, 0.3);
+  color: #F3F0E8;
 }

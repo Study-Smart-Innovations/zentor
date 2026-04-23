@@ -20,7 +20,7 @@ export async function getCourseWithAccess(courseId: string) {
 
     // 2. Fetch Teacher separately to avoid join issues in the schema cache
     const { data: teacher } = await supabaseAdmin
-      .from("teachers")
+      .from("teacher_profiles")
       .select("name, rating, rating_count")
       .eq("id", course.teacher_id)
       .maybeSingle();

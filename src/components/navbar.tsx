@@ -5,7 +5,8 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { useSession, signOut } from "next-auth/react";
-import { User, LogOut, LayoutDashboard, Menu, X } from "lucide-react";
+import { User, LogOut, Menu, X } from "lucide-react";
+
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -51,13 +52,13 @@ export const Navbar = () => {
               </>
             ) : (
               <div className="flex items-center space-x-6">
-                <Link
-                  href={session?.user?.role === "teacher" ? "/teacher/dashboard" : "/dashboard"}
+                <a
+                  href="/profile"
                   className="flex items-center space-x-2 text-sm font-bold text-editorial-black/60 hover:text-editorial-black transition-colors"
                 >
-                  <LayoutDashboard className="h-4 w-4" />
-                  <span>Dashboard</span>
-                </Link>
+                  <User className="h-4 w-4" />
+                  <span>Profile</span>
+                </a>
                 <button
                   onClick={() => signOut()}
                   className="flex items-center space-x-3 rounded-full border border-editorial-black/10 px-8 py-3 text-sm font-bold text-editorial-black transition-all hover:bg-editorial-black hover:text-white"
@@ -113,14 +114,14 @@ export const Navbar = () => {
                 </>
               ) : (
                 <>
-                  <Link
-                    href={session?.user?.role === "teacher" ? "/teacher/dashboard" : "/dashboard"}
+                  <a
+                    href="/profile"
                     onClick={() => setIsOpen(false)}
                     className="flex items-center space-x-4 text-2xl font-serif text-editorial-black/80 hover:text-editorial-black"
                   >
-                    <LayoutDashboard className="h-6 w-6 text-[#C5A059]" />
-                    <span>Dashboard</span>
-                  </Link>
+                    <User className="h-6 w-6 text-[#C5A059]" />
+                    <span>Profile</span>
+                  </a>
                   <button
                     onClick={() => {
                       setIsOpen(false);

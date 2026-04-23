@@ -18,7 +18,7 @@ export async function GET(request: Request) {
 
     // 1. Deactivate inactive students
     const { data: students, error: sError } = await supabaseAdmin
-      .from("students")
+      .from("student_profiles")
       .update({ active: false })
       .lt("last_login", dateStr)
       .select();
@@ -27,7 +27,7 @@ export async function GET(request: Request) {
 
     // 2. Deactivate inactive teachers
     const { data: teachers, error: tError } = await supabaseAdmin
-      .from("teachers")
+      .from("teacher_profiles")
       .update({ active: false })
       .lt("last_login", dateStr)
       .select();
