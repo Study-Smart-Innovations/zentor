@@ -24,9 +24,9 @@ export const HeroSection = () => {
           </p>
           
           <div className="mt-12">
-            <Link href="/asdf">
+            <Link href="/waitlist">
               <button className="rounded-full bg-editorial-black px-12 py-4 text-lg font-bold text-white shadow-xl transition-all hover:scale-105 active:scale-95">
-                Get Started
+                Join Waitlist
               </button>
             </Link>
           </div>

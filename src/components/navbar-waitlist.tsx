@@ -16,7 +16,6 @@ export const Navbar = () => {
 
   const navLinks = [
     { name: "About", href: "/about" },
-    { name: "Sign in", href: "/zxcv" },
   ];
 
   return (
@@ -43,10 +42,10 @@ export const Navbar = () => {
                   </Link>
                 ))}
                 <Link
-                  href="/asdf"
+                  href="/waitlist"
                   className="rounded-full bg-editorial-black px-8 py-3 text-sm font-bold text-white transition-all hover:scale-105 active:scale-95 shadow-xl"
                 >
-                  Get started
+                  Join Waitlist
                 </Link>
               </>
             ) : (
@@ -59,7 +58,7 @@ export const Navbar = () => {
                   <span>Profile</span>
                 </a>
                 <button
-                  onClick={() => signOut({ callbackUrl: "/original" })}
+                  onClick={() => signOut()}
                   className="flex items-center space-x-3 rounded-full border border-editorial-black/10 px-8 py-3 text-sm font-bold text-editorial-black transition-all hover:bg-editorial-black hover:text-white"
                 >
                   <LogOut className="h-4 w-4" />
@@ -104,11 +103,11 @@ export const Navbar = () => {
                     </Link>
                   ))}
                   <Link
-                    href="/asdf"
+                    href="/waitlist"
                     onClick={() => setIsOpen(false)}
                     className="w-full text-center rounded-full bg-editorial-black py-5 text-sm font-bold text-white shadow-xl"
                   >
-                    Get started
+                    Join Waitlist
                   </Link>
                 </>
               ) : (
@@ -124,7 +123,7 @@ export const Navbar = () => {
                   <button
                     onClick={() => {
                       setIsOpen(false);
-                      signOut({ callbackUrl: "/original" });
+                      signOut();
                     }}
                     className="flex items-center space-x-4 text-2xl font-serif text-editorial-black/80 text-left"
                   >

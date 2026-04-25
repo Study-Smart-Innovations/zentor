@@ -1,10 +1,10 @@
 "use client"
 
-import { Navbar } from "@/components/navbar";
+import { Navbar } from "@/components/navbar-waitlist";
 import { Footer } from "@/components/cta-footer";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { ArrowRight, Globe, Zap, Heart, ShieldCheck } from "lucide-react";
+import { ArrowRight, Globe, Zap, Heart, ShieldCheck, Users, Network, MapPin } from "lucide-react";
 
 export default function AboutPage() {
   const containerVariants = {
@@ -32,23 +32,26 @@ export default function AboutPage() {
           variants={containerVariants}
           className="max-w-5xl"
         >
-          <motion.p variants={itemVariants} className="text-[10px] font-bold uppercase tracking-[0.4em] text-editorial-black/40 mb-6 font-sans">
-            Our Raison D&apos;être
+          <motion.p suppressHydrationWarning variants={itemVariants} className="text-[10px] font-bold uppercase tracking-[0.4em] text-editorial-black/40 mb-6 font-sans">
+            Notre Raison d&apos;être
           </motion.p>
           <motion.h1 variants={itemVariants} className="text-6xl md:text-8xl font-serif text-editorial-black leading-[1.05] tracking-tight mb-12">
-            Where Local Teachers <br />
-            <span className="text-[#C5A059] italic">Become Global Mentors.</span>
+            Zentor is where education <br />
+            <span className="text-[#C5A059] italic">meets opportunity.</span>
           </motion.h1>
           <motion.p variants={itemVariants} className="max-w-2xl text-xl text-editorial-black/70 leading-relaxed font-serif italic mb-8">
-            &ldquo;We empower passionate educators to teach online and help students learn smarter, grow faster, and achieve more.&rdquo;
+            &ldquo;No matter where you come from, your start shouldn&apos;t decide how far you go.&rdquo;
           </motion.p>
-          <motion.p variants={itemVariants} className="text-[10px] font-black uppercase tracking-[0.3em] text-[#C5A059]">
-            An initiative by Study Smart Innovations
-          </motion.p>
+          <motion.div variants={itemVariants} className="flex items-center gap-3">
+            <div className="h-[1px] w-8 bg-[#C5A059]" />
+            <p className="text-[10px] font-black uppercase tracking-[0.3em] text-[#C5A059]">
+              An initiative by Study Smart Innovations
+            </p>
+          </motion.div>
         </motion.div>
       </section>
 
-      {/* The Problem/Solution Context */}
+      {/* The Vision Context */}
       <section className="bg-editorial-black py-32 px-8 sm:px-12 lg:px-24">
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
           <motion.div 
@@ -58,16 +61,16 @@ export default function AboutPage() {
             className="space-y-12"
           >
             <div className="space-y-4">
-              <h2 className="text-[10px] font-bold uppercase tracking-[0.4em] text-white/40 font-sans">The Challenge</h2>
+              <h2 className="text-[10px] font-bold uppercase tracking-[0.4em] text-white/40 font-sans">The Connection</h2>
               <p className="text-3xl font-serif text-white/90 leading-snug">
-                For years, students have struggled to find the right teachers, while talented local educators remain limited to small classrooms.
+                From metro cities to small towns and villages—Zentor connects students, teachers, and learners across every corner.
               </p>
             </div>
             <div className="p-1 w-full bg-white/5" />
             <div className="space-y-4">
-              <h2 className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#C5A059] font-sans">The Zentor Reality</h2>
+              <h2 className="text-[10px] font-bold uppercase tracking-[0.4em] text-[#C5A059] font-sans">Bridging the Gap</h2>
               <p className="text-xl text-white/60 leading-relaxed">
-                We built a platform where students discover trusted teachers and attend live, interactive classes—while educators create, teach, and earn without limits.
+                For students in Tier 3 cities and rural areas, Zentor acts as a bridge—bringing exposure, guidance, and opportunities that are often hard to access.
               </p>
             </div>
           </motion.div>
@@ -79,20 +82,20 @@ export default function AboutPage() {
             className="grid grid-cols-1 gap-6"
           >
             <div className="p-10 bg-white/5 border border-white/10 space-y-4">
-              <Zap className="h-6 w-6 text-[#C5A059]" />
-              <h3 className="text-white font-serif text-2xl">Flexible Learning</h3>
-              <p className="text-white/40 text-sm leading-relaxed">Personalized paths that adapt to the student&apos;s unique pace and lifestyle.</p>
+              <Users className="h-6 w-6 text-[#C5A059]" />
+              <h3 className="text-white font-serif text-2xl">Collaborative Learning</h3>
+              <p className="text-white/40 text-sm leading-relaxed">A space where students learn, share, and grow together beyond classrooms.</p>
             </div>
             <div className="p-10 bg-white/5 border border-white/10 space-y-4">
-              <Globe className="h-6 w-6 text-[#C5A059]" />
-              <h3 className="text-white font-serif text-2xl">Unlimited Reach</h3>
-              <p className="text-white/40 text-sm leading-relaxed">Breaking the bounds of geography to connect the best minds, globally.</p>
+              <MapPin className="h-6 w-6 text-[#C5A059]" />
+              <h3 className="text-white font-serif text-2xl">Geographic Equality</h3>
+              <p className="text-white/40 text-sm leading-relaxed">Access to resources and mentorship that isn&apos;t limited by where you live.</p>
             </div>
           </motion.div>
         </div>
       </section>
 
-      {/* Mission Shield */}
+      {/* Mission Section */}
       <section className="py-40 px-8 text-center bg-[#FDFCF9]">
         <motion.div
            initial={{ opacity: 0, y: 20 }}
@@ -105,52 +108,49 @@ export default function AboutPage() {
                <Heart className="h-6 w-6 text-white" />
             </div>
           </div>
-          <h2 className="text-[10px] font-bold uppercase tracking-[0.4em] text-editorial-black/40 mb-8">Our Mission is Simple</h2>
+          <h2 className="text-[10px] font-bold uppercase tracking-[0.4em] text-editorial-black/40 mb-8">Zentor&apos;s Mission</h2>
           <p className="text-4xl md:text-5xl font-serif text-editorial-black leading-tight italic">
-            &ldquo;To make high-quality education accessible to every student and give every teacher the tools to grow beyond boundaries.&rdquo;
+            &ldquo;To make quality learning, meaningful connections, and real opportunities accessible to every student, everywhere.&rdquo;
           </p>
         </motion.div>
       </section>
 
-      {/* Differentiation */}
+      {/* The Network */}
       <section className="py-32 px-8 sm:px-12 lg:px-24">
         <div className="max-w-7xl mx-auto">
-          <h2 className="text-[10px] font-bold uppercase tracking-[0.4em] text-editorial-black/40 mb-20">The Zentor Difference</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-16">
+          <h2 className="text-[10px] font-bold uppercase tracking-[0.4em] text-editorial-black/40 mb-20">We are building a network where</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-16">
             <div className="space-y-6">
               <div className="text-3xl font-serif text-editorial-black/20">01.</div>
-              <h4 className="text-xl font-serif text-editorial-black">Local Educators</h4>
-              <p className="text-sm text-editorial-black/60 leading-relaxed">We focus on real local mentors, not just large institutions, preserving the personal touch.</p>
+              <h4 className="text-xl font-serif text-editorial-black">Learning is Collaborative</h4>
+              <p className="text-sm text-editorial-black/60 leading-relaxed">No longer isolated, but shared within a thriving community of peers and mentors.</p>
             </div>
             <div className="space-y-6">
               <div className="text-3xl font-serif text-editorial-black/20">02.</div>
-              <h4 className="text-xl font-serif text-editorial-black">Live & Interactive</h4>
-              <p className="text-sm text-editorial-black/60 leading-relaxed">Engagement is key. We offer live classes where students participate, not just watch.</p>
+              <h4 className="text-xl font-serif text-editorial-black">Opportunities are Accessible</h4>
+              <p className="text-sm text-editorial-black/60 leading-relaxed">Talent and ambition exist everywhere; we ensure the path to success does too.</p>
             </div>
             <div className="space-y-6">
               <div className="text-3xl font-serif text-editorial-black/20">03.</div>
-              <h4 className="text-xl font-serif text-editorial-black">Income Pathways</h4>
-              <p className="text-sm text-editorial-black/60 leading-relaxed">Giving teachers the tools to monetize their expertise and build a sustainable career.</p>
-            </div>
-            <div className="space-y-6">
-              <div className="text-3xl font-serif text-editorial-black/20">04.</div>
-              <h4 className="text-xl font-serif text-editorial-black">Growth Focus</h4>
-              <p className="text-sm text-editorial-black/60 leading-relaxed">Continuous improvement metrics that show real student and teacher progress.</p>
+              <h4 className="text-xl font-serif text-editorial-black">Growth is Continuous</h4>
+              <p className="text-sm text-editorial-black/60 leading-relaxed">Learning that goes beyond exams, fostering lifelong development and career exploration.</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Trust Section */}
+      {/* Teachers Section */}
       <section className="py-32 bg-editorial-black text-white px-8 sm:px-12 lg:px-24">
         <div className="max-w-7xl mx-auto border-t border-white/10 pt-20">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-24">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-24">
             <div>
-              <h3 className="text-4xl font-serif mb-8">Built on Trust.</h3>
-              <p className="text-white/40 leading-relaxed">Our commitment is to the community we serve—students searching for knowledge and teachers sharing their mastery.</p>
+              <h3 className="text-4xl font-serif mb-8">For Educators.</h3>
+              <p className="text-white/40 leading-relaxed text-lg">
+                Zentor is a powerful platform for teachers to reach, inspire, and impact learners at scale. We provide the tools to turn passionate teaching into global mentorship.
+              </p>
             </div>
-            <div className="lg:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-12">
-               {['Transparency', 'Student Success', 'Teacher Empowerment', 'Continuous Improvement'].map((item) => (
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-12">
+               {['Exposure', 'Scale', 'Impact', 'Sustainability'].map((item) => (
                  <div key={item} className="flex items-center space-x-6">
                    <ShieldCheck className="h-5 w-5 text-[#C5A059]" />
                    <span className="text-xs font-bold uppercase tracking-widest">{item}</span>
@@ -170,16 +170,19 @@ export default function AboutPage() {
           className="max-w-4xl mx-auto"
         >
           <h2 className="text-5xl md:text-7xl font-serif text-editorial-black mb-12 leading-tight">
-            Learning has no limits. <br />
-            Teaching has no boundaries.
+            The future of learning <br />
+            <span className="italic text-[#C5A059]">is everywhere.</span>
           </h2>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-             <Link href="/register?role=student" className="w-full sm:w-auto bg-editorial-black text-white px-12 py-5 text-xs font-bold uppercase tracking-[0.3em] transition-all hover:bg-editorial-black/90 shadow-2xl">
-                Start Learning
+          <div className="flex items-center justify-center">
+             <Link href="/waitlist" className="w-full sm:w-auto bg-editorial-black text-white px-16 py-5 text-xs font-bold uppercase tracking-[0.3em] transition-all hover:bg-editorial-black/90 shadow-2xl">
+                Join Waitlist
              </Link>
-             <Link href="/register?role=teacher" className="w-full sm:w-auto border border-editorial-black text-editorial-black px-12 py-5 text-xs font-bold uppercase tracking-[0.3em] transition-all hover:bg-editorial-black hover:text-white">
-                Start Teaching
-             </Link>
+          </div>
+          <div className="mt-16 flex items-center justify-center gap-3">
+            <div className="h-[1px] w-8 bg-editorial-black/10" />
+            <p className="text-[10px] font-black uppercase tracking-[0.3em] text-editorial-black/40">
+              Initiative by Study Smart Innovations
+            </p>
           </div>
         </motion.div>
       </section>
